@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/03 14:24:18 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/03 14:40:24 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 LIB_PATH = ./libft/
 
-SRC = 	main.c \
+SRC = 	main.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(SRCS))
 INC = -I ./includes/
