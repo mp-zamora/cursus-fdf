@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 13:54:30 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:50:09 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char *argv[])
 	if (map == NULL)
 		handle_error();
 	/* Then we run MLX and create a graphical representation of said array. */
-	print_map(map, size_x, size_y);
+	// print_map(map, size_x, size_y);
 	/* Finally we free everything when the user exits the GUI. */
 	return (0);
 }
