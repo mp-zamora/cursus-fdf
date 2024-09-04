@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 13:32:00 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:54:30 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,13 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		handle_error();
-	/*ft_putstr_fd("TEST READ\n", 1);*/
-	/*ft_putstr_fd(get_next_line(open_file(argv[1])), 1);*/
-	/*ft_putstr_fd("\nEND READ\n", 1);*/
 	size_x = get_max_x(open_file(argv[1]));
 	size_y = get_max_y(open_file(argv[1]));
 	map = parse_map(open_file(argv[1]), size_x, size_y);
 	if (map == NULL)
 		handle_error();
-	/*ft_putstr_fd("Map parse succesffully\n", 1);*/
 	/* Then we run MLX and create a graphical representation of said array. */
-	/*ft_putstr_fd("Printing x and y values:\n", 1);*/
-	/*ft_putnbr_fd(size_x, 1);*/
-	/*ft_putstr_fd("\n", 1);*/
-	/*ft_putnbr_fd(size_y, 1);*/
-	/*ft_putstr_fd("\nEnd.\n", 1);*/
-	/*print_map(map, size_x, size_y);*/
-	/*ft_putstr_fd("TEST PRINT OF MAP:\n", 1);*/
-	/*ft_putnbr_fd(map[0][0], 1);*/
-	/*ft_putstr_fd("\n", 1);*/
-
+	print_map(map, size_x, size_y);
 	/* Finally we free everything when the user exits the GUI. */
 	return (0);
 }

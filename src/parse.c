@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 13:33:55 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:53:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,12 @@ int	**parse_map(int fd, int size_x, int size_y)
 	{
 		aux_buffers = ft_split(buffer, ' ');
 		x = -1;
+		map[y] = (int *)malloc(sizeof(int) * size_x);
 		while (++x < size_x)
-		{
-			map[y] = (int *)malloc(sizeof(int) * size_x);
 			map[y][x] = ft_atoi(aux_buffers[x]);
-			/*ft_putnbr_fd(map[y][x], 1);*/
-			/*ft_putstr_fd(" ", 1);*/
-		}
-		/*ft_putstr_fd("\n", 1);*/
 		buffer = get_next_line(fd);
 		y++;
 	}
 	close(fd);
-	print_map(map, size_x, size_y);
 	return (map);
 }

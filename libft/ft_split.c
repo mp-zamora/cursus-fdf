@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:54:44 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 12:33:13 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:55:12 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_countwords(char const *s, char c)
 	words = 0;
 	while (s[++i])
 	{
-		if ((s[i + 1] && (s[i + 1] != c && s[i + 1] != '\n') 
-			&& s[i] == c) || (i == 0 && s[i] != c))
+		if ((s[i + 1] && (s[i + 1] != c && s[i + 1] != '\n')
+				&& s[i] == c) || (i == 0 && s[i] != c))
 			words++;
 	}
 	return (words);
