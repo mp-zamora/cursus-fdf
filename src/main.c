@@ -6,53 +6,75 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/03 15:21:48 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:32:00 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-/* I'll use lists to store the coordinates of every spatial point */
-t_point	*parse_map(int argc, char *argv[])
+void	handle_error(void)
 {
-	t_point	*points;
-	char	*buffer;
-	int		total_points;
+	ft_putstr_fd("Error\n", 2);
+	exit(2);
+}
 
-	// Check if args are OK
-	if (argc != 2)
-		return (0);
-	total_points = 0;
-	fd = open(argv[1], O_RDONLY);
+int	open_file(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
+		handle_error();
+	return (fd);
+}
+
+void	print_map(int **map, int size_y, int size_x)
+{
+	int	y;
+	int x;
+	
+	y = 0;
+	while (y < size_y)
 	{
-		perror("Error opening file");
-		close (fd);
-		return (0);
+		x = -1;
+		while (++x < size_x)
+		{
+			ft_putnbr_fd(map[y][x], 1);
+			ft_putstr_fd(" ", 1);
+		}
+		ft_putstr_fd("\n", 1);
+		y++;
 	}
-	/* Fill the list with points */
-	buffer = get_next_line(fd);
-	while (buffer != NULL)
-	{
-		// ft_split buffer, create new node for each element.
-		// Do function that reads string, and creates struct.
-		buffer = get_next_line(fd);
-	}
-	close(fd);
-	return (1);
 }
 
 int	main(int argc, char *argv[])
 {
-	/* First we parse the map to: */
-	/*	- Extract size && xyz coordinates of every point. */
-	// Parsing and extraction:
-	//	1. Open file given in args.
-	//	2. get_next_line and ft_split result.
-	//	3. For every value, record in a lineal array its x, y and z coordinates.
-	parse_map(argc, argv);
+	int	**map;
+	int	size_x;
+	int	size_y;
+
+	if (argc != 2)
+		handle_error();
+	/*ft_putstr_fd("TEST READ\n", 1);*/
+	/*ft_putstr_fd(get_next_line(open_file(argv[1])), 1);*/
+	/*ft_putstr_fd("\nEND READ\n", 1);*/
+	size_x = get_max_x(open_file(argv[1]));
+	size_y = get_max_y(open_file(argv[1]));
+	map = parse_map(open_file(argv[1]), size_x, size_y);
+	if (map == NULL)
+		handle_error();
+	/*ft_putstr_fd("Map parse succesffully\n", 1);*/
 	/* Then we run MLX and create a graphical representation of said array. */
-	ft_putstr_fd("This is a test\n", 1);
+	/*ft_putstr_fd("Printing x and y values:\n", 1);*/
+	/*ft_putnbr_fd(size_x, 1);*/
+	/*ft_putstr_fd("\n", 1);*/
+	/*ft_putnbr_fd(size_y, 1);*/
+	/*ft_putstr_fd("\nEnd.\n", 1);*/
+	/*print_map(map, size_x, size_y);*/
+	/*ft_putstr_fd("TEST PRINT OF MAP:\n", 1);*/
+	/*ft_putnbr_fd(map[0][0], 1);*/
+	/*ft_putstr_fd("\n", 1);*/
+
 	/* Finally we free everything when the user exits the GUI. */
 	return (0);
 }
