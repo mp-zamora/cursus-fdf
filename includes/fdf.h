@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 13:25:07 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:29:18 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 /* PARSE */
 int		get_max_x(int fd);
 int		get_max_y(int fd);
+void	free_buffers(char **buffers, int size);
 int		**parse_map(int fd, int size_x, int size_y);
 /* MAIN */
 void	handle_error(void);
 void	print_map(int **map, int size_y, int size_x);
+void	free_fdf_map(int **map, int size);
 int		open_file(char *file);
 
 #endif
