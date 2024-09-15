@@ -6,17 +6,18 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/04 12:00:44 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/15 13:17:59 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -lm
+CFLAGS = -Wall -Wextra -Werror -lm -Iinclude -ldl -lglfw -pthread
 
 SRC_PATH = src/
 OBJ_PATH = obj/
 LIB_PATH = ./libft/
+MLX_PATH = ./MLX42/
 
 SRC = 	main.c \
 		parse.c \
@@ -26,28 +27,71 @@ SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(SRCS))
 INC = -I ./includes/
 LIB = $(addprefix $(LIB_PATH), libft.a)
+MLX = $(addprefix $(MLX_PATH), build/libmlx42.a)
+
+GREEN = \033[0;32m
+BLUE = \033[0;34m
+YELLOW = \033[0;33m
+RED = \033[0;31m
+RESET = \033[0m
+
+.PHONY: all clean fclean re call
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C $(LIB_PATH)
-	$(CC) $(CFLAGS) $(OBJS) $(INC) $(LIB) -o $(NAME)
+$(LIB):
+	@echo "$(YELLOW)Building libft...$(RESET)"
+	@$(MAKE) -C $(LIB_PATH) > /dev/null 2>&1 && \
+		echo "$(GREEN)✔ Build succesful!$(RESET)" || \
+		echo "$(RED)✘ Build failed!$(RESET)"
+
+$(MLX):
+	@echo "$(YELLOW)Checking for MLX42...$(RESET)"
+	@if [ ! -d "$(MLX_PATH)" ]; then \
+		echo "$(BLUE)Cloning MLX42 repository...$(RESET)"; \
+		git clone https://github.com/42-Fundacion-Telefonica/MLX42.git > /dev/null 2>&1; \
+		echo "$(GREEN)✔ MLX42 repository cloned!$(RESET)"; \
+	else \
+		echo "$(GREEN)✔ MLX42 already cloned!$(RESET)"; \
+	fi
+	@if [ ! -f "$(MLX)" ]; then \
+		echo "$(BLUE)Building MLX42...$(RESET)"; \
+		cmake -S $(MLX_PATH) -B $(MLX_PATH)/build > /dev/null 2>&1; \
+		cmake --build $(MLX_PATH)/build -j4 > /dev/null 2>&1; \
+		echo "$(GREEN)✔ MLX42 build successful!$(RESET)"; \
+	else \
+		echo "$(GREEN)✔ MLX42 is already built!$(RESET)"; \
+	fi
+
+$(NAME): $(OBJS) $(LIB) $(MLX)
+	@echo "$(YELLOW)Building $(NAME)...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(INC) $(LIB) $(MLX) -o $(NAME) && \
+		echo "$(GREEN)✔ Build succesful!$(RESET)" || \
+		echo "$(RED)✘ Build failed!$(RESET)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@echo "$(BLUE)Compiling $<...$(RESET)"
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
+	@echo "$(BLUE)Creating object directory...$(RESET)"
+	@mkdir -p $(OBJ_PATH)
 
 clean:
-	make -C $(LIB_PATH) clean
-	rm -f $(OBJS)
+	@echo "$(BLUE)Cleaning object files...$(RESET)"
+	@$(MAKE) -C $(LIB_PATH) clean > /dev/null 2>&1
+	@rm -f $(OBJS)
+	@echo "$(GREEN)✔ Objects cleaned succesfully!$(RESET)"
 
 fclean: clean
-	make -C $(LIB_PATH) fclean
-	rm -f $(NAME)
+	@echo "$(BLUE)Removing binaries, dependencies and object files...$(RESET)"
+	@$(MAKE) -C $(LIB_PATH) fclean > /dev/null 2>&1
+	@rm -f $(NAME)
+	@rm -rf $(MLX_PATH)
+	@echo "$(GREEN)✔ Directory cleaned succesfully!$(RESET)"
 
 re: fclean all
 
 call: all clean
-	make -C $(LIB_PATH) fclean
+	$(MAKE) -C $(LIB_PATH) fclean
+	rm -rf $(MLX_PATH)
