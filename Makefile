@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/15 13:17:59 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/15 13:24:04 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,5 +93,7 @@ fclean: clean
 re: fclean all
 
 call: all clean
-	$(MAKE) -C $(LIB_PATH) fclean
-	rm -rf $(MLX_PATH)
+	@echo "$(YELLOW)Cleaning dependency builds...$(RESET)"
+	@$(MAKE) -C $(LIB_PATH) fclean > /dev/null 2>&1
+	@rm -rf $(MLX_PATH)
+	@echo "$(GREEN)✔ Dependency builds cleaned succesfully!$(RESET)"
