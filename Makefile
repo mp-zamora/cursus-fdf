@@ -6,13 +6,13 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/15 13:24:04 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/15 13:48:34 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -lm -Iinclude -ldl -lglfw -pthread
+CFLAGS = -Wall -Wextra -Werror -LMLX42/build -lmlx42 -lglfw -ldl -lm -pthread -IMLX42/included 
 
 SRC_PATH = src/
 OBJ_PATH = obj/
