@@ -6,23 +6,27 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/15 14:08:39 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/15 15:22:39 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -LMLX42/build -lmlx42 -lglfw -ldl -lm -lpthread -IMLX42/include
+CFLAGS = -Wall -Wextra -Werror
+CLIBS = -LMLX42/build -lmlx42 -lglfw -ldl -lm -lpthread
 
 SRC_PATH = src/
 OBJ_PATH = obj/
 LIB_PATH = ./libft/
 MLX_PATH = ./MLX42/
 
-SRC = test.c
+SRC =	main.c \
+		parse.c \
+		get_next_line.c \
+		get_next_line_utils.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(SRCS))
-INC = -I ./includes/
+INC = -I./MLX42/include -I ./includes/
 LIB = $(addprefix $(LIB_PATH), libft.a)
 MLX = $(addprefix $(MLX_PATH), build/libmlx42.a)
 
@@ -35,9 +39,6 @@ RESET = \033[0m
 .PHONY: all clean fclean re call
 
 all: $(NAME)
-
-test: src/test.c
-	gcc -o test src/test.c -LMLX42/build -lmlx42 -lglfw -ldl -lm -lpthread -IMLX42/include
 
 $(LIB):
 	@echo "$(YELLOW)Building libft...$(RESET)"
@@ -63,15 +64,15 @@ $(MLX):
 		echo "$(GREEN)✔ MLX42 is already built!$(RESET)"; \
 	fi
 
-$(NAME): $(MLX) $(LIB) $(OBJS) 
+$(NAME): $(MLX) $(LIB) $(OBJS)
 	@echo "$(YELLOW)Building $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) $(INC) $(MLX) $(LIB) -o $(NAME) && \
+	@$(CC) $(CFLAGS) $(OBJS) $(INC) $(MLX) $(LIB) $(CLIBS) -o $(NAME) && \
 		echo "$(GREEN)✔ Build succesful!$(RESET)" || \
 		echo "$(RED)✘ Build failed!$(RESET)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)
 	@echo "$(BLUE)Compiling $<...$(RESET)"
-	@$(CC) $(CFLAGS) $(INC) $(MLX) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJ_PATH):
 	@echo "$(BLUE)Creating object directory...$(RESET)"
