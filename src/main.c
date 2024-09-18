@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/14 17:24:38 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:33:16 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_fdf_map(int **map, int size)
 
 	i = -1;
 	if (!map)
-		return;
+		return ;
 	while (++i < size)
 		free (map[i]);
 	free (map);
@@ -77,6 +77,6 @@ int	main(int argc, char *argv[])
 	/* Then we run MLX and create a graphical representation of said array. */
 	// print_map(map, size_x, size_y);
 	/* Finally we free everything when the user exits the GUI. */
-	free_fdf_map(map, size_x);
+	free_fdf_map(map, size_y);
 	return (0);
 }

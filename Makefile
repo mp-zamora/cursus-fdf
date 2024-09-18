@@ -6,13 +6,14 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/18 11:34:00 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/18 11:52:38 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+DFLAGS = -g
 CLIBS = -LMLX42/build -lmlx42 -lglfw -ldl -lm -lpthread
 
 SRC_PATH = src/
@@ -39,6 +40,9 @@ RESET = \033[0m
 .PHONY: all clean fclean re call
 
 all: $(NAME)
+
+debug: CFLAGS += -g
+debug: all
 
 $(LIB):
 	@echo -e "$(YELLOW)Building libft...$(RESET)"
