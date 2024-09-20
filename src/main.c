@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/18 12:33:16 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:25:33 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,25 @@ void	free_fdf_map(int **map, int size)
 	free (map);
 }
 
-int	main(int argc, char *argv[])
+int32_t	main(int argc, char *argv[])
 {
 	int	**map;
 	int	size_x;
 	int	size_y;
+	mlx_t* mlx;
+	mlx_image_t* img;
 
 	if (argc != 2)
 		handle_error();
+	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!mlx)
+		handle_error();
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+	{
+		mlx_close_window(mlx);
+		handle_error();
+	}
 	size_x = get_max_x(open_file(argv[1]));
 	size_y = get_max_y(open_file(argv[1]));
 	map = parse_map(open_file(argv[1]), size_x, size_y);
@@ -74,9 +85,9 @@ int	main(int argc, char *argv[])
 		handle_error();
 	else
 		print_map(map, size_y, size_x);
-	/* Then we run MLX and create a graphical representation of said array. */
-	// print_map(map, size_x, size_y);
-	/* Finally we free everything when the user exits the GUI. */
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	free_fdf_map(map, size_y);
-	return (0);
+	return (EXIT_SUCCESS);
 }

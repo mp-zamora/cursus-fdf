@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/20 11:59:10 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/20 13:26:16 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MLX_PATH = ./MLX42/
 
 SRC =	main.c \
 		parse.c \
+		graphics.c \
 		get_next_line.c \
 		get_next_line_utils.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
