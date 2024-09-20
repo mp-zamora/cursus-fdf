@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/18 12:32:57 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:57:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ int	**parse_map(int fd, int size_x, int size_y)
 	y = 1;
 	while (buffer != NULL)
 	{
+		ft_putstr_fd("Buffer (y=", 1);
+		ft_putnbr_fd(y, 1);
+		ft_putstr_fd("): ", 1);
+		ft_putstr_fd(buffer, 1);
 		aux_buffers = ft_split(buffer, ' ');
 		x = -1;
 		map[size_y - y] = (int *)malloc(sizeof(int) * size_x);
