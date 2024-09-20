@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:33:08 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:40:27 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_hook(void *param)
 {
-	mlx_t* mlx;
+	mlx_t	*mlx;
 
 	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))

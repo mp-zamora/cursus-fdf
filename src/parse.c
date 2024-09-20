@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:34:15 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:40:11 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_max_x(int fd)
 {
 	char	*buffer;
-	
+
 	buffer = get_next_line(fd);
 	if (!buffer)
 		return (0);
@@ -36,7 +36,7 @@ int	get_max_y(int fd)
 		buffer = get_next_line(fd);
 	}
 	close (fd);
-	return (y);	
+	return (y);
 }
 
 void	free_buffers(char **buffers, int size)
