@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:40:27 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:50:20 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ void	ft_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-void	fill_gradient(int **gradient)
-{
-	int	i;
-
-	if (!(*gradient))
-		return ;
-	i = -1;
-	while (++i < 256)
-		(*gradient)[i] = i;
-}
 /*int32_t	init_graphics(int **map, int size_x, int size_y)*/
 /*{*/
 /*	mlx_t* mlx;*/
