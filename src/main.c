@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 13:25:33 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:17:59 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,27 @@ void	print_map(int **map, int size_y, int size_x)
 	}
 }
 
-void	free_fdf_map(int **map, int size)
+void	free_fdf_map(t_fdf_map *map)
 {
 	int	i;
 
 	i = -1;
 	if (!map)
 		return ;
-	while (++i < size)
-		free (map[i]);
+	if (map->gradient)
+		free (map->gradient);
+	if (map->map)
+	{
+		while (++i < map->size_y)
+			free (map->map[i]);
+		free (map->map);
+	}
 	free (map);
 }
 
 int32_t	main(int argc, char *argv[])
 {
-	int	**map;
-	int	size_x;
-	int	size_y;
+	t_fdf_map	*map;
 	mlx_t* mlx;
 	mlx_image_t* img;
 
@@ -78,16 +82,10 @@ int32_t	main(int argc, char *argv[])
 		mlx_close_window(mlx);
 		handle_error();
 	}
-	size_x = get_max_x(open_file(argv[1]));
-	size_y = get_max_y(open_file(argv[1]));
-	map = parse_map(open_file(argv[1]), size_x, size_y);
-	if (map == NULL)
-		handle_error();
-	else
-		print_map(map, size_y, size_x);
+	map = init_map(argv[1]);
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	free_fdf_map(map, size_y);
+	free_fdf_map(map);
 	return (EXIT_SUCCESS);
 }
