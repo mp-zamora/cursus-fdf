@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/18 11:52:38 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/20 11:39:59 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,60 +45,60 @@ debug: CFLAGS += -g
 debug: all
 
 $(LIB):
-	@echo -e "$(YELLOW)Building libft...$(RESET)"
+	@printf "$(YELLOW)Building libft...$(RESET) \n"
 	@$(MAKE) -C $(LIB_PATH) > /dev/null 2>&1 && \
-		echo -e "$(GREEN)✔ Build succesful!$(RESET)" || \
-		echo -e "$(RED)✘ Build failed!$(RESET)"
+		printf "$(GREEN)✔ Build succesful!$(RESET) \n" || \
+		printf "$(RED)✘ Build failed!$(RESET) \n"
 
 $(MLX):
-	@echo -e "$(YELLOW)Checking for MLX42...$(RESET)"
+	@printf "$(YELLOW)Checking for MLX42...$(RESET) \n"
 	@if [ ! -d "$(MLX_PATH)" ]; then \
-		echo -e "$(BLUE)Cloning MLX42 repository...$(RESET)"; \
+		printf "$(BLUE)Cloning MLX42 repository...$(RESET) \n"; \
 		git clone https://github.com/42-Fundacion-Telefonica/MLX42.git > /dev/null 2>&1; \
-		echo -e "$(GREEN)✔ MLX42 repository cloned!$(RESET)"; \
+		printf "$(GREEN)✔ MLX42 repository cloned!$(RESET) \n"; \
 	else \
-		echo "$(GREEN)✔ MLX42 already cloned!$(RESET)"; \
+		echo "$(GREEN)✔ MLX42 already cloned!$(RESET) \n"; \
 	fi
 	@if [ ! -f "$(MLX)" ]; then \
-		echo -e "$(BLUE)Building MLX42...$(RESET)"; \
+		printf "$(BLUE)Building MLX42...$(RESET) \n"; \
 		cmake -S $(MLX_PATH) -B $(MLX_PATH)/build > /dev/null 2>&1; \
 		cmake --build $(MLX_PATH)/build -j4 > /dev/null 2>&1; \
-		echo -e "$(GREEN)✔ MLX42 build successful!$(RESET)"; \
+		printf "$(GREEN)✔ MLX42 build successful!$(RESET) \n"; \
 	else \
-		echo -e "$(GREEN)✔ MLX42 is already built!$(RESET)"; \
+		printf "$(GREEN)✔ MLX42 is already built!$(RESET) \n"; \
 	fi
 
 $(NAME): $(MLX) $(LIB) $(OBJS)
-	@echo -e "$(YELLOW)Building $(NAME)...$(RESET)"
+	@printf "$(YELLOW)Building $(NAME)...$(RESET) \n"
 	@$(CC) $(CFLAGS) $(OBJS) $(INC) $(MLX) $(LIB) $(CLIBS) -o $(NAME) && \
-		echo -e "$(GREEN)✔ Build succesful!$(RESET)" || \
-		echo -e "$(RED)✘ Build failed!$(RESET)"
+		printf "$(GREEN)✔ Build succesful!$(RESET) \n" || \
+		printf "$(RED)✘ Build failed!$(RESET) \n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_PATH)
-	@echo -e "$(BLUE)Compiling $<...$(RESET)"
+	@printf "$(BLUE)Compiling $<...$(RESET) \n"
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJ_PATH):
-	@echo -e "$(BLUE)Creating object directory...$(RESET)"
+	@printf "$(BLUE)Creating object directory...$(RESET) \n"
 	@mkdir -p $(OBJ_PATH)
 
 clean:
-	@echo -e "$(BLUE)Cleaning object files...$(RESET)"
+	@printf "$(BLUE)Cleaning object files...$(RESET) \n"
 	@$(MAKE) -C $(LIB_PATH) clean > /dev/null 2>&1
 	@rm -f $(OBJS)
-	@echo -e "$(GREEN)✔ Objects cleaned succesfully!$(RESET)"
+	@printf "$(GREEN)✔ Objects cleaned succesfully!$(RESET) \n"
 
 fclean: clean
-	@echo -e "$(BLUE)Removing binaries, dependencies and object files...$(RESET)"
+	@printf "$(BLUE)Removing binaries, dependencies and object files...$(RESET) \n"
 	@$(MAKE) -C $(LIB_PATH) fclean > /dev/null 2>&1
 	@rm -f $(NAME)
 	@rm -rf $(MLX_PATH)
-	@echo -e "$(GREEN)✔ Directory cleaned succesfully!$(RESET)"
+	@printf "$(GREEN)✔ Directory cleaned succesfully!$(RESET) \n"
 
 re: fclean all
 
 call: all clean
-	@echo -e "$(YELLOW)Cleaning dependency builds...$(RESET)"
+	@printf "$(YELLOW)Cleaning dependency builds...$(RESET) \n"
 	@$(MAKE) -C $(LIB_PATH) fclean > /dev/null 2>&1
 	@rm -rf $(MLX_PATH)
-	@echo -e "$(GREEN)✔ Dependency builds cleaned succesfully!$(RESET)"
+	@printf "$(GREEN)✔ Dependency builds cleaned succesfully!$(RESET) \n"
