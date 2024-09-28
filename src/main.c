@@ -6,15 +6,18 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:39:31 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:34:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	handle_error(void)
+void	handle_error(char *message)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Error: ", 2);
+	if (message)
+		ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
 	exit(2);
 }
 
@@ -24,7 +27,7 @@ int	open_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		handle_error();
+		handle_error("Failure opening file.");
 	return (fd);
 }
 
@@ -72,15 +75,15 @@ int32_t	main(int argc, char *argv[])
 	mlx_image_t	*img;
 
 	if (argc != 2)
-		handle_error();
+		handle_error("Only 2 arguments are expected (name of the binary and the .fdf file).");
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
-		handle_error();
+		handle_error("MLX init failed.");
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 	{
 		mlx_close_window(mlx);
-		handle_error();
+		handle_error("MLX image failed.");
 	}
 	map = init_map(argv[1]);
 	mlx_loop_hook(mlx, ft_hook, mlx);

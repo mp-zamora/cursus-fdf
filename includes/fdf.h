@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 17:08:35 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:33:36 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_fdf_map
 
 /* PARSE */
 int			get_max_x(int fd);
-int			get_max_y(int fd, int size_x);
+int			get_max_y(int fd);
 void		free_buffers(char **buffers, int size);
 t_fdf_map	*init_map(char *file);
 int			**parse_map(int fd, int size_x, int size_y);
@@ -43,7 +43,7 @@ void		ft_hook(void *param);
 /* UTILS */
 int			*fill_gradient(void);
 /* MAIN */
-void		handle_error(void);
+void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
 void		free_fdf_map(t_fdf_map *map);
 int			open_file(char *file);
