@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 16:49:33 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:08:47 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_max_x(int fd)
 	return (ft_countwords(buffer, ' '));
 }
 
-int	get_max_y(int fd)
+int	get_max_y(int fd, int size_x)
 {
 	char	*buffer;
 	int		y;
@@ -32,6 +32,8 @@ int	get_max_y(int fd)
 	buffer = get_next_line(fd);
 	while (buffer)
 	{
+		if (ft_countwords(buffer, ' ') != size_x)
+			handle_error();
 		y++;
 		buffer = get_next_line(fd);
 	}
@@ -59,7 +61,7 @@ t_fdf_map	*init_map(char *file)
 	if (!map)
 		handle_error();
 	map->size_x = get_max_x(open_file(file));
-	map->size_y = get_max_y(open_file(file));
+	map->size_y = get_max_y(open_file(file), map->size_x);
 	map->map = parse_map(open_file(file), map->size_x, map->size_y);
 	if (!map)
 		handle_error();
