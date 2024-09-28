@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:49:27 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:48:42 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			**parse_map(int fd, int size_x, int size_y);
 /* GRAPHICS */
 void		ft_hook(void *param);
 /* UTILS */
-void		fill_gradient(int **gradient);
+int			*fill_gradient(void);
 /* MAIN */
 void		handle_error(void);
 void		print_map(int **map, int size_y, int size_x);

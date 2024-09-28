@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/20 18:49:10 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/09/28 16:13:10 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ RESET = \033[0m
 all: $(NAME)
 
 debug: CFLAGS += -g
-debug: re
+debug: $(NAME)
 
 $(LIB):
 	@printf "$(YELLOW)Building libft...$(RESET) \n"

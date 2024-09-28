@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:40:11 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:49:33 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ void	free_buffers(char **buffers, int size)
 t_fdf_map	*init_map(char *file)
 {
 	t_fdf_map	*map;
-	int			*gradient;
 
-	gradient = (int *)malloc(sizeof(int) * 256);
 	map = (t_fdf_map *)malloc(sizeof(t_fdf_map));
-	if (!map || !gradient)
+	if (!map)
 		handle_error();
 	map->size_x = get_max_x(open_file(file));
 	map->size_y = get_max_y(open_file(file));
@@ -67,8 +65,7 @@ t_fdf_map	*init_map(char *file)
 		handle_error();
 	else
 		print_map(map->map, map->size_y, map->size_x);
-	fill_gradient(&gradient);
-	map->gradient = gradient;
+	map->gradient = fill_gradient();
 	return (map);
 }
 
@@ -81,22 +78,53 @@ int	**parse_map(int fd, int size_x, int size_y)
 	int		y;
 
 	map = (int **)malloc(sizeof(int *) * size_y);
+	if (!map)
+		handle_error();
 	buffer = get_next_line(fd);
 	y = size_y;
 	while (buffer != NULL && y-- > 0)
 	{
-		if (ft_countwords(buffer, ' ') != size_x)
-			handle_error();
-		aux_buffers = ft_split(buffer, ' ');
 		x = -1;
+		aux_buffers = ft_split(buffer, ' ');
 		map[y] = (int *)malloc(sizeof(int) * size_x);
+		if (!map[y])
+			handle_error();
 		while (++x < size_x)
 			map[y][x] = ft_atoi(aux_buffers[x]);
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
-	if (buffer != NULL)
+	if (buffer != NULL || y > 0)
 		handle_error();
 	close(fd);
 	return (map);
 }
+
+/*int	**parse_map(int fd, int size_x, int size_y)*/
+/*{*/
+/*	int		**map;*/
+/*	char	*buffer;*/
+/*	char	**aux_buffers;*/
+/*	int		x;*/
+/*	int		y;*/
+/**/
+/*	map = (int **)malloc(sizeof(int *) * size_y);*/
+/*	buffer = get_next_line(fd);*/
+/*	y = size_y;*/
+/*	while (buffer != NULL && y-- > 0)*/
+/*	{*/
+/*		if (ft_countwords(buffer, ' ') != size_x)*/
+/*			handle_error();*/
+/*		aux_buffers = ft_split(buffer, ' ');*/
+/*		x = -1;*/
+/*		map[y] = (int *)malloc(sizeof(int) * size_x);*/
+/*		while (++x < size_x)*/
+/*			map[y][x] = ft_atoi(aux_buffers[x]);*/
+/*		free_buffers(aux_buffers, size_x);*/
+/*		buffer = get_next_line(fd);*/
+/*	}*/
+/*	if (buffer != NULL)*/
+/*		handle_error();*/
+/*	close(fd);*/
+/*	return (map);*/
+/*}*/
