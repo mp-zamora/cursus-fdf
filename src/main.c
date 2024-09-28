@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 17:34:51 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:24:40 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int32_t	main(int argc, char *argv[])
 	mlx_image_t	*img;
 
 	if (argc != 2)
-		handle_error("Only 2 arguments are expected (name of the binary and the .fdf file).");
+		handle_error("Only 2 arguments are expected.");
+	map = init_map(argv[1]);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error("MLX init failed.");
@@ -85,7 +86,7 @@ int32_t	main(int argc, char *argv[])
 		mlx_close_window(mlx);
 		handle_error("MLX image failed.");
 	}
-	map = init_map(argv[1]);
+	/*draw_map(map, img);*/
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

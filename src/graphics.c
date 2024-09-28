@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/20 18:50:20 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:24:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 }
+
+/*void	draw_map(t_fdf_map *map, mlx_image_t *img)*/
+/*{*/
+/*}*/
 
 /*int32_t	init_graphics(int **map, int size_x, int size_y)*/
 /*{*/
