@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/29 17:46:22 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:16:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 typedef struct s_fdf_map
 {
 	int	**map;
-	int	**isometric;
 	int	size_x;
 	int	size_y;
+	int	**isometric;
+	int	total_size;
 	int	*gradient;
 }	t_fdf_map;
 
@@ -41,8 +42,10 @@ t_fdf_map	*init_map(char *file);
 int			**parse_map(int fd, int size_x, int size_y);
 /* GRAPHICS */
 void		ft_hook(void *param);
+void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* UTILS */
 int			*fill_gradient(void);
+int			**convert_to_iso(int **map, int size_x, int size_y);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);

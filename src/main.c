@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 19:24:40 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:16:33 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int32_t	main(int argc, char *argv[])
 		mlx_close_window(mlx);
 		handle_error("MLX image failed.");
 	}
-	/*draw_map(map, img);*/
+	draw_map(map, img);
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
