@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/29 18:47:30 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:19:10 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* UTILS */
 int			*fill_gradient(void);
 int			**convert_to_iso(int **map, int size_x, int size_y);
+void		correct_offset(int ***isometric, int total_size);
+void		add_offset(int ***isometric, int total_size, int x_offset, int y_offset);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
