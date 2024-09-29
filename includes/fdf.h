@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 18:52:01 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:46:22 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 typedef struct s_fdf_map
 {
 	int	**map;
-	int	*isometric_map;
+	int	**isometric;
 	int	size_x;
 	int	size_y;
 	int	*gradient;

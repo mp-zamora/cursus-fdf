@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/28 18:04:49 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:40:09 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_fdf_map	*init_map(char *file)
 	map->map = parse_map(open_file(file), map->size_x, map->size_y);
 	if (!map)
 		handle_error("Map parsing failed.");
+	map->isometric = convert_to_iso(map->map, map->size_x, map->size_y);
 	/*else*/
 	/*	print_map(map->map, map->size_y, map->size_x);*/
 	map->gradient = fill_gradient();
