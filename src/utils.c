@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/29 20:22:19 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/01 20:46:39 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,39 +54,43 @@ int	**convert_to_iso(int **map, int size_x, int size_y)
 		}
 	}
 	ft_putstr_fd("Before correcting offset...\n", 1);
-	correct_offset(&isometric_map, size_x * size_y);
-	return (isometric_map);
+	return(correct_offset(isometric_map, size_x * size_y));
 }
 
-void	correct_offset(int ***isometric, int total_size)
+int	**correct_offset(int **isometric, int total_size)
 {
 	int	i;
 	int	x_offset;
 	int	y_offset;
+	int	**isometric_map;
 
 	i = -1;
 	x_offset = 0;
 	y_offset = 0;
+	isometric_map = (int **)malloc(sizeof(int *) * 2);
+	if (!isometric_map)
+		handle_error("Isometric map malloc failed.");
+	isometric_map[0] = (int *)malloc(sizeof(int) * total_size);
+	isometric_map[1] = (int *)malloc(sizeof(int) * total_size);
+	if (!isometric_map[0] || !isometric_map[1])
+		handle_error("Isometric map submallocs failed.");
 	while (++i < total_size)
 	{
-		if ((*isometric)[0][i] < 0 && (*isometric)[0][i] > x_offset)
-			x_offset = abs((*isometric)[0][i]) + 1;
-		if ((*isometric)[1][i] < 0 && (*isometric)[1][i] > y_offset)
-			y_offset = abs((*isometric)[1][i]) + 1;
+		if (isometric[0][i] < 0 && abs(isometric[0][i]) > x_offset)
+			x_offset = abs(isometric[0][i]) + 1;
+		if (isometric[1][i] < 0 && abs(isometric[1][i]) > y_offset)
+			y_offset = abs(isometric[1][i]) + 1;
 	}
 	ft_putstr_fd("Before adding offset...\n", 1);
-	add_offset(isometric, total_size, x_offset, y_offset);
-}
-
-void	add_offset(int ***isometric, int total_size, int x_offset, int y_offset)
-{
-	int	i;
-
 	i = -1;
 	while (++i < total_size)
 	{
-		(*isometric)[0][i] += x_offset;
-		(*isometric)[0][i] += y_offset;
+		isometric_map[0][i] = isometric[0][i] + x_offset;
+		isometric_map[1][i] = isometric[1][i] + y_offset;
 	}
+	free (isometric[0]);
+	free (isometric[1]);
+	free (isometric);
 	ft_putstr_fd("Offset added!\n", 1);
+	return (isometric_map);
 }

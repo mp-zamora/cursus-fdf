@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/29 18:12:07 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:24:28 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_fdf_map	*init_map(char *file)
 	map->total_size = map->size_x * map->size_y;
 	/*else*/
 	/*	print_map(map->map, map->size_y, map->size_x);*/
-	map->gradient = fill_gradient();
+	/*map->gradient = fill_gradient();*/
 	ft_putstr_fd("Initialized succesfully!\n", 1);
 	return (map);
 }
