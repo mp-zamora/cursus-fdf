@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 18:03:10 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 20:23:09 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int32_t	main(int argc, char *argv[])
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	free_fdf_map(map);
+	ft_putstr_fd("Memory freed succesfully.\n" , 1);
 	return (EXIT_SUCCESS);
 }
