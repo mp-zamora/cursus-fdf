@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 13:09:20 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:40:01 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 
 typedef struct s_fdf_map
 {
-	int	**map;
-	int	size_x;
-	int	size_y;
-	int	**isometric;
-	int	total_size;
-	int	*max_coords;
-	int	*gradient;
+	int		**map;
+	int		size_x;
+	int		size_y;
+	float	**isometric;
+	int		total_size;
+	float	*max_coords;
+	int		*gradient;
 }	t_fdf_map;
 
 /* PARSE */
@@ -46,9 +46,9 @@ void		ft_hook(void *param);
 void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* UTILS */
 int			*fill_gradient(void);
-int			**convert_to_iso(int **map, int size_x, int size_y, int alpha);
-int			**correct_offset(int **isometric, int total_size);
-int			*get_max_coords(int **isometric, int total_size);
+float		**convert_to_iso(int **map, int size_x, int size_y, float alpha);
+float		**correct_offset(float **isometric, int total_size);
+float		*get_max_coords(float **isometric, int total_size);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
