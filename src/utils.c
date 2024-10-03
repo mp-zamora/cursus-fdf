@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/01 20:46:39 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 12:23:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,26 @@ int	**correct_offset(int **isometric, int total_size)
 	free (isometric);
 	ft_putstr_fd("Offset added!\n", 1);
 	return (isometric_map);
+}
+
+int	*get_max_coords(int	**isometric, int total_size)
+{
+	int	i;
+	int	*max_coords;
+
+	i = 0;
+	max_coords = (int *)malloc(sizeof(int) * 2);
+	if (!max_coords)
+		handle_error("max_coords malloc faile.");
+	max_coords[0] = 0;
+	max_coords[1] = 0;
+	while (i < total_size)
+	{
+		if (isometric[0][i] > max_coords[0])
+			max_coords[0] = isometric[0][i];
+		if (isometric[1][i] > max_coords[1])
+			max_coords[1] = isometric[1][i];
+		i++;
+	}
+	return (max_coords);
 }

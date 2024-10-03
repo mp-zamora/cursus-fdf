@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/01 20:45:25 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 12:19:11 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_fdf_map
 	int	size_y;
 	int	**isometric;
 	int	total_size;
+	int	*max_coords;
 	int	*gradient;
 }	t_fdf_map;
 
@@ -47,6 +48,7 @@ void		draw_map(t_fdf_map *map, mlx_image_t *img);
 int			*fill_gradient(void);
 int			**convert_to_iso(int **map, int size_x, int size_y);
 int			**correct_offset(int **isometric, int total_size);
+int			*get_max_coords(int **isometric, int total_size);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);

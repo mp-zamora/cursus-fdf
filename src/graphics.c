@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/01 20:31:11 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 12:11:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 	test = img;
 	img = test;
 	/* Prints the isometric coordinates */
-	ft_putstr_fd("Isometric coordinates", 1);
+	ft_putstr_fd("Painting pixels...", 1);
 	i = -1;
 	while (++i < map->total_size)
 	{
 		/* Here I should paint each correspondant pixel */
-		ft_putstr_fd("\nFor i: ", 1);
-		ft_putnbr_fd(i, 1);
-		ft_putstr_fd("\nIsometric X: ", 1);
-		ft_putnbr_fd(map->isometric[0][i], 1);
-		ft_putstr_fd("\nIsometric Y: ", 1);
-		ft_putnbr_fd(map->isometric[1][i], 1);
-		ft_putstr_fd("\n", 1);
-		mlx_put_pixel(img, abs(map->isometric[0][i]), abs(map->isometric[1][i]), 0xFFFFFFFF);
+		/*ft_putstr_fd("\nFor i: ", 1);*/
+		/*ft_putnbr_fd(i, 1);*/
+		/*ft_putstr_fd("\nIsometric X: ", 1);*/
+		/*ft_putnbr_fd(map->isometric[0][i], 1);*/
+		/*ft_putstr_fd("\nIsometric Y: ", 1);*/
+		/*ft_putnbr_fd(map->isometric[1][i], 1);*/
+		/*ft_putstr_fd("\n", 1);*/
+		mlx_put_pixel(img, map->isometric[0][i], map->isometric[1][i], 0xFFFFFFFF);
 	}
 	ft_putstr_fd("Pixels painted successfully!\n", 1);
 	/* Here I should pass img to window */
