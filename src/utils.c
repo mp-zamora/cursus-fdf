@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 12:23:52 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:09:37 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	*fill_gradient(void)
 }
 
 /* WARNING WIP: isometric_map contains both matrices: x in index 0, and y in index 1 */
-int	**convert_to_iso(int **map, int size_x, int size_y)
+int	**convert_to_iso(int **map, int size_x, int size_y, int alpha)
 {
 	int	**isometric_map;
 	int	i;
@@ -48,8 +48,14 @@ int	**convert_to_iso(int **map, int size_x, int size_y)
 		j = -1;
 		while (++j < size_x)
 		{
-			isometric_map[0][k] = j * cos(0.785398) + i * cos(2.785398) + map[i][j] * cos(-1.214602);
-			isometric_map[1][k] = j * sin(0.785398) + i * sin(2.785398) + map[i][j] * sin(-1.214602);
+			isometric_map[0][k] = j * cos(alpha) \
+				+ i * cos(alpha + 2) \
+				+ map[i][j] * cos(alpha - 2);
+			isometric_map[1][k] = j * sin(alpha) \
+				+ i * sin(alpha + 2) \
+				+ map[i][j] * sin(alpha - 2);
+			isometric_map[0][k] *= 5;
+			isometric_map[1][k] *= 5;
 			k++;
 		}
 	}

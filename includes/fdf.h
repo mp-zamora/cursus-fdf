@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 12:19:11 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:09:20 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		ft_hook(void *param);
 void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* UTILS */
 int			*fill_gradient(void);
-int			**convert_to_iso(int **map, int size_x, int size_y);
+int			**convert_to_iso(int **map, int size_x, int size_y, int alpha);
 int			**correct_offset(int **isometric, int total_size);
 int			*get_max_coords(int **isometric, int total_size);
 /* MAIN */

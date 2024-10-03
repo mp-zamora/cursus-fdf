@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 12:18:50 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:12:09 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_fdf_map	*init_map(char *file)
 	map->map = parse_map(open_file(file), map->size_x, map->size_y);
 	if (!map)
 		handle_error("Map parsing failed.");
-	map->isometric = convert_to_iso(map->map, map->size_x, map->size_y);
+	map->isometric = convert_to_iso(map->map, map->size_x, map->size_y, 7);
 	map->total_size = map->size_x * map->size_y;
 	map->max_coords = get_max_coords(map->isometric, map->total_size);
 	/*else*/
@@ -86,8 +86,8 @@ int	**parse_map(int fd, int size_x, int size_y)
 	if (!map)
 		handle_error("Points map allocation failed.");
 	buffer = get_next_line(fd);
-	y = size_y;
-	while (buffer != NULL && y-- > 0)
+	y = -1;
+	while (buffer != NULL && ++y < size_y)
 	{
 		x = -1;
 		if (ft_countwords(buffer, ' ') != size_x)
@@ -101,7 +101,7 @@ int	**parse_map(int fd, int size_x, int size_y)
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
-	if (buffer != NULL || y > 0)
+	if (buffer != NULL || y < size_y - 1)
 		handle_error("Buffer != NULL or y > 0 at the end of parsing.");
 	close(fd);
 	return (map);
