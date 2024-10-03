@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 12:24:24 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:03:10 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ int32_t	main(int argc, char *argv[])
 	if (argc != 2)
 		handle_error("Only 2 arguments are expected.");
 	map = init_map(argv[1]);
-	ft_putstr_fd("Before MLX init", 1);
-	mlx = mlx_init(map->max_coords[0] + 10, map->max_coords[1] + 10, "FdF", true);
+	ft_putstr_fd("Before MLX init\n", 1);
+	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		handle_error("MLX init failed.");
-	ft_putstr_fd("Before MLX image", 1);
-	img = mlx_new_image(mlx, map->max_coords[0] + 10, map->max_coords[1] + 10);
+	ft_putstr_fd("Before MLX image\n", 1);
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 	{
 		mlx_close_window(mlx);
 		handle_error("MLX image failed.");
 	}
-	ft_putstr_fd("Before drawing map", 1);
+	ft_putstr_fd("Before drawing map\n", 1);
 	draw_map(map, img);
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);

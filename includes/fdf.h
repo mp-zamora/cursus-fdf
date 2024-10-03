@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 13:40:01 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:20:51 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,24 @@
 # include <limits.h>
 # include <math.h>
 
+// Struct idea:
+// Both 3d coordinates and 2d coordinates of a point. Navigate trough the 3d
+// coords, operate with the 2d coords.
+typedef struct s_coords
+{
+	int		x;
+	int		y;
+	int		z;
+	float	iso_x;
+	float	iso_y;
+}	t_coords;
+
 typedef struct s_fdf_map
 {
-	int		**map;
+	t_coords **map;
 	int		size_x;
 	int		size_y;
-	float	**isometric;
+	/*float	**isometric;*/
 	int		total_size;
 	float	*max_coords;
 	int		*gradient;
@@ -40,15 +52,18 @@ int			get_max_x(int fd);
 int			get_max_y(int fd);
 void		free_buffers(char **buffers, int size);
 t_fdf_map	*init_map(char *file);
-int			**parse_map(int fd, int size_x, int size_y);
+t_coords	**parse_map(int fd, int size_x, int size_y);
+float		*get_offset(t_coords **map, int size_x, int size_y);
+t_coords	assign_coords(int x, int y, int z, float alpha, float scale);
+t_coords	**add_offset(t_coords **map, int size_x, int size_y);
 /* GRAPHICS */
 void		ft_hook(void *param);
 void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* UTILS */
 int			*fill_gradient(void);
-float		**convert_to_iso(int **map, int size_x, int size_y, float alpha);
-float		**correct_offset(float **isometric, int total_size);
-float		*get_max_coords(float **isometric, int total_size);
+/*float		**convert_to_iso(int **map, int size_x, int size_y, float alpha);*/
+/*float		**correct_offset(float **isometric, int total_size);*/
+float		*get_max_coords(t_coords **map, int size_x, int size_y);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
