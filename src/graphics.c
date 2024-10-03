@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 18:31:36 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 20:15:37 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	ft_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-void	paint_line(float *x, float *y, mlx_image_t *img)
+void	paint_line(float x1, float x2, float y1, float y2, mlx_image_t *img)
 {
 	int		i;
 	float	dx;
 	float	dy;
 	float	step;
 
-	dx = fabs(x[1] - x[0]);
-	dy = fabs(y[1] - y[0]);
+	dx = fabs(x2 - x1);
+	dy = fabs(y2 - y1);
 	if(dx >= dy)
 		step = dx;
 	else
@@ -39,33 +39,61 @@ void	paint_line(float *x, float *y, mlx_image_t *img)
 	i = 0;
 	while (i <= step)
 	{
-		mlx_put_pixel(img, x[0], y[0], 0xFFFFFFFF);
-		x[0] += dx;
-		y[0] += dy;
+		mlx_put_pixel(img, x1, y1, 0xFF0000FF);
+		x1 += dx;
+		y1 += dy;
 		i++;
 	}
 }
 
-/*void	draw_lines(t_fdf_map *map, mlx_image_t *img)*/
-/*{*/
-/*	int		i;*/
-/*	int		j;*/
-/*	float	x[2];*/
-/*	float	y[2];*/
-/**/
-/*	i = 0;*/
-/*	j = map->total_size;*/
-/*	while (i < map->total_size)*/
-/*	{*/
-/*		x[0] = map->isometric[0][i];*/
-/*		x[1] = map->isometric[0][i];*/
-/*		y[0] = map->isometric[1][j];*/
-/*		y[1] = map->isometric[1][j - 1];*/
-/*		paint_line(x, y, img);*/
-/*		i++;*/
-/*		j--;*/
-/*	}*/
-/*}*/
+void	draw_lines(t_fdf_map *map, mlx_image_t *img)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < map->size_y)
+	{
+		j = 0;
+		while (j < map->size_x)
+		{
+			//DEBUG
+			printf("Origin Coordinates: i = %d, j = %d; X = %f, Y = %f;\n", \
+				i, j, map->map[i][j].iso_x, map->map[i][j].iso_y);
+			//DEBUG
+			if (j + 1 < map->size_x)
+			{
+				paint_line(map->map[i][j].iso_x, map->map[i][j + 1].iso_x, \
+					map->map[i][j].iso_y, map->map[i][j + 1].iso_y, img);
+				printf("Line Destination Coordinates: i = %d, j = %d; X = %f, Y = %f;\n", \
+					i, j + 1, map->map[i][j + 1].iso_x, map->map[i][j + 1].iso_y);
+			}
+			if (i + 1 < map->size_y)
+			{
+				paint_line(map->map[i][j].iso_x, map->map[i + 1][j].iso_x, \
+					map->map[i][j].iso_y, map->map[i + 1][j].iso_y, img);
+				printf("Column Destination Coordinates: i = %d, j = %d; X = %f, Y = %f;\n", \
+					i + 1, j, map->map[i + 1][j].iso_x, map->map[i + 1][j].iso_y);
+			}
+			/*if (j + 1 < map->size_x)*/
+			/*{*/
+			/*	paint_line(map->map[i][j].iso_x, map->map[i][j + 1].iso_x, \*/
+			/*		map->map[i][j].iso_y, map->map[i][j + 1].iso_y, img);*/
+			/*}*/
+			/*if (i + 1 < map->size_y)*/
+			/*{*/
+				/*paint_line(map->map[i][map->size_x - 1].iso_x, \*/
+				/*	map->map[i + 1][map->size_x - 1].iso_x, \*/
+				/*	map->map[i][map->size_x - 1].iso_y, \*/
+				/*	map->map[i + 1][map->size_x - 1].iso_y, img);*/
+			/*	paint_line(map->map[i][j].iso_x, map->map[i + 1][j].iso_x, \*/
+			/*		map->map[i][j].iso_y, map->map[i + 1][j].iso_y, img);*/
+			/*}*/
+			j++;
+		}
+		i++;
+	}
+}
 
 void	draw_map(t_fdf_map *map, mlx_image_t *img)
 {

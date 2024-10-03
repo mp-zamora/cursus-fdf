@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 18:20:51 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 20:02:38 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include "get_next_line.h"
 # include <MLX42/MLX42.h>
 # include <stdlib.h>
+// REMOVE
+# include <stdio.h>
+// REMOVE UP
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 18:31:04 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/03 19:54:41 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 		if (!map[y])
 			handle_error("map[y] malloc failed.");
 		while (++x < size_x)
-			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.5235988, 2);
+			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54, 15);
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
@@ -138,7 +138,7 @@ t_coords	assign_coords(int x, int y, int z, float alpha, float scale)
 				+ z * cosf(alpha - 2)) * scale;
 	coordinates.iso_y = (x * sinf(alpha) \
 				+ y * sinf(alpha + 2) \
-				+ z * sinf(alpha - 2) * scale);
+				+ z * sinf(alpha - 2)) * scale;
 	return (coordinates);
 }
 
