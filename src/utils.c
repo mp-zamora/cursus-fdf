@@ -6,25 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 16:16:38 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:16:06 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-int	*fill_gradient(void)
-{
-	int	i;
-	int	*gradient;
-
-	gradient = (int *)malloc(sizeof(int) * 256);
-	if (!gradient)
-		return (NULL);
-	i = -1;
-	while (++i < 256)
-		gradient[i] = i;
-	return (gradient);
-}
 
 float	*get_max_coords(t_coords **map, int size_x, int size_y)
 {
@@ -54,41 +40,47 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 	return (max_coords);
 }
 
-int	get_max_x(int fd)
+float	get_percent(float x, float y, t_coords o, t_coords d)
 {
-	char	*buffer;
+	float	dx;
+	float	dy;
 
-	buffer = get_next_line(fd);
-	if (!buffer)
-		return (0);
-	close (fd);
-	return (ft_countwords(buffer, ' '));
-}
-
-int	get_max_y(int fd)
-{
-	char	*buffer;
-	int		y;
-
-	y = 0;
-	buffer = get_next_line(fd);
-	while (buffer)
+	dx = d.x - o.x;
+	dy = d.y - o.y;
+	if (fabs(dx) > fabs(dy))
 	{
-		y++;
-		buffer = get_next_line(fd);
+		if (o.x != d.x)
+			return (((x - o.x) / (d.x - o.x)));
 	}
-	close (fd);
-	return (y);
+	else
+	{	
+		if (o.y != d.y)
+			return (((y - o.y) / (d.y - o.y)));
+	}
+	return (0);
 }
 
-void	free_buffers(char **buffers, int size)
+t_coords	get_max_height(t_coords **map, int size_x, int size_y)
 {
-	int	i;
+	int			i;
+	int			j;
+	t_coords	max;
 
-	i = -1;
-	if (!buffers)
-		return ;
-	while (++i < size)
-		free (buffers[i]);
-	free (buffers);
+	i = 0;
+	max.x = 0;
+	max.y = 0;
+	max.z = 0;
+	max.iso_x = 0;
+	max.iso_y = 0;
+	while (i < size_y)
+	{
+		j = 0;
+		while (j < size_x)
+		{
+			if (map[i][j].z > max.z)
+				max = map[i][j];
+			j++;
+		}
+	}
+	return (max);
 }

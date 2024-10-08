@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/10/08 16:15:07 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/10/08 17:47:13 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC =	main.c \
 		parse2.c \
 		graphics.c \
 		utils.c \
+		color.c \
 		get_next_line.c \
 		get_next_line_utils.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:12:39 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 16:16:28 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:12:17 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,15 @@ float	get_scale(t_coords **map, int size_x, int size_y)
 		scale = HEIGHT / max_coords[1];
 	free (max_coords);
 	return (scale * 0.95);
+}
+
+int	get_max_x(int fd)
+{
+	char	*buffer;
+
+	buffer = get_next_line(fd);
+	if (!buffer)
+		return (0);
+	close (fd);
+	return (ft_countwords(buffer, ' '));
 }
