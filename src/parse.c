@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 19:54:41 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/08 11:56:21 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,6 @@ t_fdf_map	*init_map(char *file)
 	return (map);
 }
 
-t_coords	**add_offset(t_coords **map, int size_x, int size_y)
-{
-	int		i;
-	int		j;
-	float	*offset;
-
-	offset = get_offset(map, size_x, size_y);
-	i = 0;
-	while (i < size_y)
-	{
-		j = 0;
-		while (j < size_x)
-		{
-			map[i][j].iso_x += offset[0] + 10;
-			map[i][j].iso_y += offset[1] + 10;
-			j++;
-		}
-		i++;
-	}
-	free (offset);
-	return (map);
-}
-
 t_coords	**parse_map(int fd, int size_x, int size_y)
 {
 	t_coords	**map;
@@ -116,7 +93,7 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 		if (!map[y])
 			handle_error("map[y] malloc failed.");
 		while (++x < size_x)
-			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54, 15);
+			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54, 10);
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
@@ -140,6 +117,29 @@ t_coords	assign_coords(int x, int y, int z, float alpha, float scale)
 				+ y * sinf(alpha + 2) \
 				+ z * sinf(alpha - 2)) * scale;
 	return (coordinates);
+}
+
+t_coords	**add_offset(t_coords **map, int size_x, int size_y)
+{
+	int		i;
+	int		j;
+	float	*offset;
+
+	offset = get_offset(map, size_x, size_y);
+	i = 0;
+	while (i < size_y)
+	{
+		j = 0;
+		while (j < size_x)
+		{
+			map[i][j].iso_x += offset[0] + 10;
+			map[i][j].iso_y += offset[1] + 10;
+			j++;
+		}
+		i++;
+	}
+	free (offset);
+	return (map);
 }
 
 float	*get_offset(t_coords **map, int size_x, int size_y)

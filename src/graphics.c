@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 20:21:58 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/08 11:55:54 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,6 @@ void	draw_lines(t_fdf_map *map, mlx_image_t *img)
 				printf("Column Destination Coordinates: i = %d, j = %d; X = %f, Y = %f;\n", \
 					i + 1, j, map->map[i + 1][j].iso_x, map->map[i + 1][j].iso_y);
 			}
-			/*if (j + 1 < map->size_x)*/
-			/*{*/
-			/*	paint_line(map->map[i][j].iso_x, map->map[i][j + 1].iso_x, \*/
-			/*		map->map[i][j].iso_y, map->map[i][j + 1].iso_y, img);*/
-			/*}*/
-			/*if (i + 1 < map->size_y)*/
-			/*{*/
-				/*paint_line(map->map[i][map->size_x - 1].iso_x, \*/
-				/*	map->map[i + 1][map->size_x - 1].iso_x, \*/
-				/*	map->map[i][map->size_x - 1].iso_y, \*/
-				/*	map->map[i + 1][map->size_x - 1].iso_y, img);*/
-			/*	paint_line(map->map[i][j].iso_x, map->map[i + 1][j].iso_x, \*/
-			/*		map->map[i][j].iso_y, map->map[i + 1][j].iso_y, img);*/
-			/*}*/
 			j++;
 		}
 		i++;
@@ -121,7 +107,7 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 		}
 		i++;
 	}
-	draw_lines(map, img);
+	/*draw_lines(map, img);*/
 	ft_putstr_fd("Pixels painted successfully!\n", 1);
 	/* Here I should pass img to window */
 }

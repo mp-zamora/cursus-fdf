@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 20:23:09 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/08 11:48:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int32_t	main(int argc, char *argv[])
 		handle_error("Only 2 arguments are expected.");
 	map = init_map(argv[1]);
 	ft_putstr_fd("Before MLX init\n", 1);
-	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	mlx = mlx_init(map->max_coords[0], map->max_coords[1], "FdF", true);
 	if (!mlx)
 		handle_error("MLX init failed.");
 	ft_putstr_fd("Before MLX image\n", 1);
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	img = mlx_new_image(mlx, map->max_coords[0], map->max_coords[1]);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 	{
 		mlx_close_window(mlx);
