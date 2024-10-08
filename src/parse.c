@@ -6,67 +6,26 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 12:56:37 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:16:17 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	get_max_x(int fd)
-{
-	char	*buffer;
-
-	buffer = get_next_line(fd);
-	if (!buffer)
-		return (0);
-	close (fd);
-	return (ft_countwords(buffer, ' '));
-}
-
-int	get_max_y(int fd)
-{
-	char	*buffer;
-	int		y;
-
-	y = 0;
-	buffer = get_next_line(fd);
-	while (buffer)
-	{
-		y++;
-		buffer = get_next_line(fd);
-	}
-	close (fd);
-	return (y);
-}
-
-void	free_buffers(char **buffers, int size)
-{
-	int	i;
-
-	i = -1;
-	if (!buffers)
-		return ;
-	while (++i < size)
-		free (buffers[i]);
-	free (buffers);
-}
-
 t_fdf_map	*init_map(char *file)
 {
 	t_fdf_map	*map;
 
-	ft_putstr_fd("Initializing map...\n", 1);
 	map = (t_fdf_map *)malloc(sizeof(t_fdf_map));
 	if (!map)
-		handle_error("Map malloc failed.");
+		handle_error("Malloc failed.");
 	map->size_x = get_max_x(open_file(file));
 	map->size_y = get_max_y(open_file(file));
 	map->map = parse_map(open_file(file), map->size_x, map->size_y);
 	if (!map)
-		handle_error("Map parsing failed.");
+		handle_error("Parsing failed.");
 	map->total_size = map->size_x * map->size_y;
 	map->max_coords = get_max_coords(map->map, map->size_x, map->size_y);
-	ft_putstr_fd("Initialized succesfully!\n", 1);
 	return (map);
 }
 
@@ -80,25 +39,25 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 
 	map = (t_coords **)malloc(sizeof(t_coords *) * size_y);
 	if (!map)
-		handle_error("Points map allocation failed.");
+		handle_error("Malloc failed.");
 	buffer = get_next_line(fd);
 	y = -1;
 	while (buffer != NULL && ++y < size_y)
 	{
 		x = -1;
 		if (ft_countwords(buffer, ' ') != size_x)
-			handle_error("Size_x missmatch.");
+			handle_error("Incorrect map format.");
 		aux_buffers = ft_split(buffer, ' ');
 		map[y] = (t_coords *)malloc(sizeof(t_coords) * size_x);
 		if (!map[y])
-			handle_error("map[y] malloc failed.");
+			handle_error("Malloc failed.");
 		while (++x < size_x)
 			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54);
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
 	if (buffer != NULL || y < size_y - 1)
-		handle_error("Buffer != NULL or y > 0 at the end of parsing.");
+		handle_error("Incorrect map format.");
 	close(fd);
 	return (add_scale(add_offset(map, size_x, size_y), size_x, size_y));
 }
@@ -117,92 +76,4 @@ t_coords	assign_coords(int x, int y, int z, float alpha)
 				+ y * sinf(alpha + 2) \
 				+ z * sinf(alpha - 2));
 	return (coordinates);
-}
-
-t_coords	**add_offset(t_coords **map, int size_x, int size_y)
-{
-	int		i;
-	int		j;
-	float	*offset;
-
-	offset = get_offset(map, size_x, size_y);
-	i = 0;
-	while (i < size_y)
-	{
-		j = 0;
-		while (j < size_x)
-		{
-			map[i][j].iso_x += offset[0] + 10;
-			map[i][j].iso_y += offset[1] + 10;
-			j++;
-		}
-		i++;
-	}
-	free (offset);
-	return (map);
-}
-
-float	*get_offset(t_coords **map, int size_x, int size_y)
-{
-	int		i;
-	int		j;
-	float	*offset;
-
-	i = 0;
-	offset = (float *)malloc(sizeof(float) * 2);
-	if (!offset)
-		handle_error("Offset malloc failed.");
-	offset[0] = 0;
-	offset[1] = 0;
-	while (i < size_y)
-	{
-		j = 0;
-		while (j < size_x)
-		{
-			if (map[i][j].iso_x < 0 && fabsf(map[i][j].iso_x) > offset[0])
-				offset[0] = fabsf(map[i][j].iso_x);
-			if (map[i][j].iso_y < 0 && fabsf(map[i][j].iso_y) > offset[1])
-				offset[1] = fabsf(map[i][j].iso_y); 
-			j++;
-		}
-		i++;
-	}
-	return (offset);
-}
-
-t_coords	**add_scale(t_coords **map, int size_x, int size_y)
-{
-	int		i;
-	int		j;
-	float	scale;
-
-	scale = get_scale(map, size_x, size_y);
-	i = 0;
-	while (i < size_y)
-	{
-		j = 0;
-		while (j < size_x)
-		{
-			map[i][j].iso_x *= scale;
-			map[i][j].iso_y *= scale;
-			j++;
-		}
-		i++;
-	}
-	return (map);
-}
-
-float	get_scale(t_coords **map, int size_x, int size_y)
-{
-	float	scale;
-	float	*max_coords;
-
-	scale = 1;
-	max_coords = get_max_coords(map, size_x, size_y);
-	if (WIDTH / max_coords[0] < HEIGHT / max_coords[1])
-		scale = WIDTH / max_coords[0];
-	else
-		scale = HEIGHT / max_coords[1];
-	free (max_coords);
-	return (scale * 0.95);
 }

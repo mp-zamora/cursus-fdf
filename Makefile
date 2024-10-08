@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/09/28 16:13:10 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/10/08 16:15:07 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MLX_PATH = ./MLX42/
 
 SRC =	main.c \
 		parse.c \
+		parse2.c \
 		graphics.c \
 		utils.c \
 		get_next_line.c \

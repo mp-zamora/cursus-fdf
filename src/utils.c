@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 18:31:23 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/08 16:16:38 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 	i = 0;
 	max_coords = (float *)malloc(sizeof(float) * 2);
 	if (!max_coords)
-		handle_error("max_coords malloc faile.");
+		handle_error("Malloc failed.");
 	max_coords[0] = 0;
 	max_coords[1] = 0;
 	while (i < size_y)
@@ -52,4 +52,43 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 		i++;
 	}
 	return (max_coords);
+}
+
+int	get_max_x(int fd)
+{
+	char	*buffer;
+
+	buffer = get_next_line(fd);
+	if (!buffer)
+		return (0);
+	close (fd);
+	return (ft_countwords(buffer, ' '));
+}
+
+int	get_max_y(int fd)
+{
+	char	*buffer;
+	int		y;
+
+	y = 0;
+	buffer = get_next_line(fd);
+	while (buffer)
+	{
+		y++;
+		buffer = get_next_line(fd);
+	}
+	close (fd);
+	return (y);
+}
+
+void	free_buffers(char **buffers, int size)
+{
+	int	i;
+
+	i = -1;
+	if (!buffers)
+		return ;
+	while (++i < size)
+		free (buffers[i]);
+	free (buffers);
 }
