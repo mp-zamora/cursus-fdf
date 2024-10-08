@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 16:16:54 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:04:39 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	free_fdf_map(t_fdf_map *map)
 		return ;
 	if (map->gradient)
 		free (map->gradient);
+	if (map->max_coords)
+		free (map->max_coords);
 	if (map->map)
 	{
 		while (++i < map->size_y)
