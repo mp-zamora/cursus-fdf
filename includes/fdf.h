@@ -6,15 +6,15 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/03 20:02:38 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/08 12:53:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1280
+# define HEIGHT 720
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -57,8 +57,10 @@ void		free_buffers(char **buffers, int size);
 t_fdf_map	*init_map(char *file);
 t_coords	**parse_map(int fd, int size_x, int size_y);
 float		*get_offset(t_coords **map, int size_x, int size_y);
-t_coords	assign_coords(int x, int y, int z, float alpha, float scale);
+t_coords	assign_coords(int x, int y, int z, float alpha);
 t_coords	**add_offset(t_coords **map, int size_x, int size_y);
+t_coords	**add_scale(t_coords **map, int size_x, int size_y);
+float		get_scale(t_coords **map, int size_x, int size_y);
 /* GRAPHICS */
 void		ft_hook(void *param);
 void		draw_map(t_fdf_map *map, mlx_image_t *img);

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 11:55:54 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:54:31 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 		while (j < map->size_x)
 		{
 			/* Here I should paint each correspondant pixel */
-			ft_putstr_fd("\nFor i: ", 1);
-			ft_putnbr_fd(i, 1);
-			ft_putstr_fd("\nFor j: ", 1);
-			ft_putnbr_fd(j, 1);
-			ft_putstr_fd("\nZ: ", 1);
-			ft_putnbr_fd(map->map[i][j].z, 1);
-			/*ft_putstr_fd("\nIsometric Y: ", 1);*/
-			/*ft_putnbr_fd(map->map[i][j]->iso_y, 1);*/
-			ft_putstr_fd("\n", 1);
+			/*ft_putstr_fd("\nFor i: ", 1);*/
+			/*ft_putnbr_fd(i, 1);*/
+			/*ft_putstr_fd("\nFor j: ", 1);*/
+			/*ft_putnbr_fd(j, 1);*/
+			/*ft_putstr_fd("\nZ: ", 1);*/
+			/*ft_putnbr_fd(map->map[i][j].z, 1);*/
+			/*ft_putstr_fd("\n", 1);*/
+			/*printf("ISOX: %f\n", map->map[i][j].iso_x);*/
+			/*printf("ISOY: %f\n", map->map[i][j].iso_y);*/
 			mlx_put_pixel(img, map->map[i][j].iso_x, \
 				 map->map[i][j].iso_y, 0xFFFFFFFF);
 			j++;

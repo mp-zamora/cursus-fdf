@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 11:56:21 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:56:37 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,17 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 		if (!map[y])
 			handle_error("map[y] malloc failed.");
 		while (++x < size_x)
-			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54, 10);
+			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54);
 		free_buffers(aux_buffers, size_x);
 		buffer = get_next_line(fd);
 	}
 	if (buffer != NULL || y < size_y - 1)
 		handle_error("Buffer != NULL or y > 0 at the end of parsing.");
 	close(fd);
-	return (add_offset(map, size_x, size_y));
+	return (add_scale(add_offset(map, size_x, size_y), size_x, size_y));
 }
 
-t_coords	assign_coords(int x, int y, int z, float alpha, float scale)
+t_coords	assign_coords(int x, int y, int z, float alpha)
 {
 	t_coords coordinates;
 
@@ -112,10 +112,10 @@ t_coords	assign_coords(int x, int y, int z, float alpha, float scale)
 	coordinates.z = z;
 	coordinates.iso_x = (x * cosf(alpha) \
 				+ y * cosf(alpha + 2) \
-				+ z * cosf(alpha - 2)) * scale;
+				+ z * cosf(alpha - 2));
 	coordinates.iso_y = (x * sinf(alpha) \
 				+ y * sinf(alpha + 2) \
-				+ z * sinf(alpha - 2)) * scale;
+				+ z * sinf(alpha - 2));
 	return (coordinates);
 }
 
@@ -168,4 +168,41 @@ float	*get_offset(t_coords **map, int size_x, int size_y)
 		i++;
 	}
 	return (offset);
+}
+
+t_coords	**add_scale(t_coords **map, int size_x, int size_y)
+{
+	int		i;
+	int		j;
+	float	scale;
+
+	scale = get_scale(map, size_x, size_y);
+	i = 0;
+	while (i < size_y)
+	{
+		j = 0;
+		while (j < size_x)
+		{
+			map[i][j].iso_x *= scale;
+			map[i][j].iso_y *= scale;
+			j++;
+		}
+		i++;
+	}
+	return (map);
+}
+
+float	get_scale(t_coords **map, int size_x, int size_y)
+{
+	float	scale;
+	float	*max_coords;
+
+	scale = 1;
+	max_coords = get_max_coords(map, size_x, size_y);
+	if (WIDTH / max_coords[0] < HEIGHT / max_coords[1])
+		scale = WIDTH / max_coords[0];
+	else
+		scale = HEIGHT / max_coords[1];
+	free (max_coords);
+	return (scale * 0.95);
 }
