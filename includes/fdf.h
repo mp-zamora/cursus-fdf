@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 19:14:22 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/11 00:05:54 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define COLOR_A 0xCCFFFFFF
-# define COLOR_B 0x00FF80FF
+# define COLOR_A 0xCCFFFF
+# define COLOR_B 0x00FF80
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -61,18 +61,22 @@ float		get_scale(t_coords **map, int size_x, int size_y);
 int			get_max_x(int fd);
 /* GRAPHICS */
 void		ft_hook(void *param);
-void		paint_line(t_coords o, t_coords d, mlx_image_t *img, uint32_t c);
+void		paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m);
 void		draw_lines(t_fdf_map *map, mlx_image_t *img);
 void		draw_map(t_fdf_map *map, mlx_image_t *img);
 /* COLOR */
-uint32_t	get_color(float x, float y, t_coords min, t_coords max);
+uint32_t	get_color(float x, float y, t_coords o, t_coords d, t_fdf_map *m);
 int			get_r(int rgba);
 int			get_g(int rgba);
 int			get_b(int rgba);
 int			get_a(int rgba);
 /* UTILS */
 float		*get_max_coords(t_coords **map, int size_x, int size_y);
-float		get_percent(float x, float y, t_coords o, t_coords d);
+float		get_od_percent(float x, float y, t_coords o, t_coords d);
+float		get_z_percent(int z, int max_z, int min_z);
+float		get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m);
+t_coords	get_max_height(t_fdf_map *map);
+t_coords	get_min_height(t_fdf_map *map);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
