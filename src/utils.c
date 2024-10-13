@@ -6,11 +6,13 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/11 00:13:18 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/11 19:01:06 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+// REMOVE BELOW
+#include <stdio.h>
 
 float	*get_max_coords(t_coords **map, int size_x, int size_y)
 {
@@ -49,8 +51,12 @@ float	get_z_percent(int z, int max_z, int min_z)
 	int		dz;
 	float	percent;
 	
+	/*printf("GZP, MAX: %i\nMIN: %i\n", max_z, min_z);*/
 	dz = abs(max_z - min_z);
+	/*printf("GZP, DZ: %i\n", dz);*/
 	percent = (z - min_z) / dz;
+	/*printf("GZP, Z: %i\n", z);*/
+	/*printf("GZP, PERCENT: %f\n", percent);*/
 	return (percent);
 }
 
@@ -83,9 +89,16 @@ float get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m)
 	float	final_percent;
 
 	od_percent = get_od_percent(x, y, o, d);
+	/*printf("OD_PERCENT: %f\n", od_percent);*/
 	o_percent = get_z_percent(o.z, get_max_height(m).z, get_min_height(m).z);
+	/*printf("O_PERCENT: %f\n", o_percent);*/
 	d_percent = get_z_percent(d.z, get_max_height(m).z, get_min_height(m).z);
-	final_percent = ((o_percent - d_percent) * od_percent) + o_percent;
+	/*printf("D_PERCENT: %f\n", d_percent);*/
+	printf("OP: %f\n", o_percent);
+	/*printf("DP: %f\n", d_percent);*/
+	/*printf("ODP: %f\n", od_percent);*/
+	final_percent = (fabs(d_percent - o_percent) * od_percent) + o_percent;
+	/*printf("FINAL_PERCENT: %f\n", final_percent);*/
 	return (final_percent);
 }
 
