@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 19:24:39 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:43:41 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ float get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m)
 	{
 		o_percent = get_z_percent(o.z, m->max_z, m->min_z);
 		d_percent = get_z_percent(d.z, m->max_z, m->min_z);
+		final_percent = ((d_percent - o_percent) * (od_percent)) + o_percent;
 	}
 	else
 	{
 		o_percent = get_z_percent(d.z, m->max_z, m->min_z);
 		d_percent = get_z_percent(o.z, m->max_z, m->min_z);
+		final_percent = ((d_percent - o_percent) * (1 - od_percent)) + o_percent;
 	}
-	final_percent = ((d_percent - o_percent) * (1 - od_percent)) + o_percent;
 	return (final_percent);
 }
 
