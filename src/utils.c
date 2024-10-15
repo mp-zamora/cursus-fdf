@@ -6,13 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/11 19:01:06 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/15 19:24:39 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-// REMOVE BELOW
-#include <stdio.h>
 
 float	*get_max_coords(t_coords **map, int size_x, int size_y)
 {
@@ -42,41 +40,42 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 	return (max_coords);
 }
 
-// The idea is to get the Z height of o and d points.
-// Then, calculate the percent between those two points that x and y have.
-// Then, calculate which color corresponds to o and which one to d.
-// Then calculate the percent color for x and y between color_o and color_d.
 float	get_z_percent(int z, int max_z, int min_z)
 {
 	int		dz;
 	float	percent;
 	
-	/*printf("GZP, MAX: %i\nMIN: %i\n", max_z, min_z);*/
+	if (max_z == min_z)
+		return (0);
 	dz = abs(max_z - min_z);
-	/*printf("GZP, DZ: %i\n", dz);*/
 	percent = (z - min_z) / dz;
-	/*printf("GZP, Z: %i\n", z);*/
-	/*printf("GZP, PERCENT: %f\n", percent);*/
 	return (percent);
 }
 
-// Here I SHOULD get the relative % from o to d.
 float	get_od_percent(float x, float y, t_coords o, t_coords d)
 {
 	float	dx;
 	float	dy;
 
-	dx = d.x - o.x;
-	dy = d.y - o.y;
+	dx = d.iso_x - o.iso_x;
+	dy = d.iso_y - o.iso_y;
 	if (fabs(dx) > fabs(dy))
 	{
-		if (o.x != d.x)
-			return ((x - o.x) / (d.x - o.x));
+		if (x == o.iso_x)
+			return (0);
+		if (d.iso_x > o.iso_x)
+			return ((x - o.iso_x) / (d.iso_x - o.iso_x));
+		else if (o.iso_x > d.iso_x)
+			return ((o.iso_x - x) / (o.iso_x - d.iso_x));
 	}
 	else
-	{	
-		if (o.y != d.y)
-			return ((y - o.y) / (d.y - o.y));
+	{
+		if (y == o.iso_y)
+			return (0);
+		if (d.iso_y > o.iso_y)
+			return ((y - o.iso_y) / (d.iso_y - o.iso_y));
+		else if (o.iso_y > d.iso_y)
+			return ((o.iso_y - y) / (o.iso_y - d.iso_y));
 	}
 	return (0);
 }
@@ -89,38 +88,35 @@ float get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m)
 	float	final_percent;
 
 	od_percent = get_od_percent(x, y, o, d);
-	/*printf("OD_PERCENT: %f\n", od_percent);*/
-	o_percent = get_z_percent(o.z, get_max_height(m).z, get_min_height(m).z);
-	/*printf("O_PERCENT: %f\n", o_percent);*/
-	d_percent = get_z_percent(d.z, get_max_height(m).z, get_min_height(m).z);
-	/*printf("D_PERCENT: %f\n", d_percent);*/
-	printf("OP: %f\n", o_percent);
-	/*printf("DP: %f\n", d_percent);*/
-	/*printf("ODP: %f\n", od_percent);*/
-	final_percent = (fabs(d_percent - o_percent) * od_percent) + o_percent;
-	/*printf("FINAL_PERCENT: %f\n", final_percent);*/
+	if (d.z > o.z)
+	{
+		o_percent = get_z_percent(o.z, m->max_z, m->min_z);
+		d_percent = get_z_percent(d.z, m->max_z, m->min_z);
+	}
+	else
+	{
+		o_percent = get_z_percent(d.z, m->max_z, m->min_z);
+		d_percent = get_z_percent(o.z, m->max_z, m->min_z);
+	}
+	final_percent = ((d_percent - o_percent) * (1 - od_percent)) + o_percent;
 	return (final_percent);
 }
 
-t_coords	get_max_height(t_fdf_map *map)
+int	get_max_height(t_fdf_map *map)
 {
 	int			i;
 	int			j;
-	t_coords	max;
+	int			max;
 
 	i = 0;
-	max.x = 0;
-	max.y = 0;
-	max.z = INT_MIN;
-	max.iso_x = 0;
-	max.iso_y = 0;
+	max = INT_MIN;
 	while (i < map->size_y)
 	{
 		j = 0;
 		while (j < map->size_x)
 		{
-			if (map->map[i][j].z > max.z)
-				max = map->map[i][j];
+			if (map->map[i][j].z > max)
+				max = map->map[i][j].z;
 			j++;
 		}
 		i++;
@@ -128,25 +124,21 @@ t_coords	get_max_height(t_fdf_map *map)
 	return (max);
 }
 
-t_coords	get_min_height(t_fdf_map *map)
+int	get_min_height(t_fdf_map *map)
 {
 	int			i;
 	int			j;
-	t_coords	min;
+	int			min;
 
 	i = 0;
-	min.x = 0;
-	min.y = 0;
-	min.z = INT_MAX;
-	min.iso_x = 0;
-	min.iso_y = 0;
+	min = INT_MAX;
 	while (i < map->size_y)
 	{
 		j = 0;
 		while (j < map->size_x)
 		{
-			if (map->map[i][j].z < min.z)
-				min = map->map[i][j];
+			if (map->map[i][j].z < min)
+				min = map->map[i][j].z;
 			j++;
 		}
 		i++;

@@ -6,13 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/11 18:32:46 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/15 19:03:29 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-// WARNING
-#include <stdio.h>
 
 void	ft_hook(void *param)
 {
@@ -29,6 +27,8 @@ void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 	float		dx;
 	float		dy;
 	float		step;
+	float		x;
+	float		y;
 	uint32_t	color;
 	
 	dx = d.iso_x - o.iso_x;
@@ -39,13 +39,15 @@ void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 		step = fabs(dy);
 	dx = dx / step;
 	dy = dy / step;
+	x = o.iso_x;
+	y = o.iso_y;
 	i = 0;
 	while (i <= step)
 	{
-		color = get_color(o.iso_x, o.iso_y, o, d, m);
-		mlx_put_pixel(img, o.iso_x, o.iso_y, color);
-		o.iso_x += dx;
-		o.iso_y += dy;
+		color = get_color(x, y, o, d, m);
+		mlx_put_pixel(img, x, y, color);
+		x += dx;
+		y += dy;
 		i++;
 	}
 }

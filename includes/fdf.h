@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/11 00:05:54 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/15 19:11:59 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define COLOR_A 0xCCFFFF
-# define COLOR_B 0x00FF80
+# define COLOR_A 0xB04E0F
+# define COLOR_B 0xFF0000
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -26,9 +26,6 @@
 # include <limits.h>
 # include <math.h>
 
-// Struct idea:
-// Both 3d coordinates and 2d coordinates of a point. Navigate trough the 3d
-// coords, operate with the 2d coords.
 typedef struct s_coords
 {
 	int		x;
@@ -44,6 +41,8 @@ typedef struct s_fdf_map
 	int			size_x;
 	int			size_y;
 	int			total_size;
+	int			max_z;
+	int			min_z;
 	float		*max_coords;
 }	t_fdf_map;
 
@@ -75,8 +74,8 @@ float		*get_max_coords(t_coords **map, int size_x, int size_y);
 float		get_od_percent(float x, float y, t_coords o, t_coords d);
 float		get_z_percent(int z, int max_z, int min_z);
 float		get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m);
-t_coords	get_max_height(t_fdf_map *map);
-t_coords	get_min_height(t_fdf_map *map);
+int			get_max_height(t_fdf_map *map);
+int			get_min_height(t_fdf_map *map);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
