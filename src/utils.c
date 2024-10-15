@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 19:16:06 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:24:39 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,108 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 	return (max_coords);
 }
 
-float	get_percent(float x, float y, t_coords o, t_coords d)
+float	get_z_percent(int z, int max_z, int min_z)
+{
+	int		dz;
+	float	percent;
+	
+	if (max_z == min_z)
+		return (0);
+	dz = abs(max_z - min_z);
+	percent = (z - min_z) / dz;
+	return (percent);
+}
+
+float	get_od_percent(float x, float y, t_coords o, t_coords d)
 {
 	float	dx;
 	float	dy;
 
-	dx = d.x - o.x;
-	dy = d.y - o.y;
+	dx = d.iso_x - o.iso_x;
+	dy = d.iso_y - o.iso_y;
 	if (fabs(dx) > fabs(dy))
 	{
-		if (o.x != d.x)
-			return (((x - o.x) / (d.x - o.x)));
+		if (x == o.iso_x)
+			return (0);
+		if (d.iso_x > o.iso_x)
+			return ((x - o.iso_x) / (d.iso_x - o.iso_x));
+		else if (o.iso_x > d.iso_x)
+			return ((o.iso_x - x) / (o.iso_x - d.iso_x));
 	}
 	else
-	{	
-		if (o.y != d.y)
-			return (((y - o.y) / (d.y - o.y)));
+	{
+		if (y == o.iso_y)
+			return (0);
+		if (d.iso_y > o.iso_y)
+			return ((y - o.iso_y) / (d.iso_y - o.iso_y));
+		else if (o.iso_y > d.iso_y)
+			return ((o.iso_y - y) / (o.iso_y - d.iso_y));
 	}
 	return (0);
 }
 
-t_coords	get_max_height(t_coords **map, int size_x, int size_y)
+float get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m)
+{
+	float	od_percent;
+	float	o_percent;
+	float	d_percent;
+	float	final_percent;
+
+	od_percent = get_od_percent(x, y, o, d);
+	if (d.z > o.z)
+	{
+		o_percent = get_z_percent(o.z, m->max_z, m->min_z);
+		d_percent = get_z_percent(d.z, m->max_z, m->min_z);
+	}
+	else
+	{
+		o_percent = get_z_percent(d.z, m->max_z, m->min_z);
+		d_percent = get_z_percent(o.z, m->max_z, m->min_z);
+	}
+	final_percent = ((d_percent - o_percent) * (1 - od_percent)) + o_percent;
+	return (final_percent);
+}
+
+int	get_max_height(t_fdf_map *map)
 {
 	int			i;
 	int			j;
-	t_coords	max;
+	int			max;
 
 	i = 0;
-	max.x = 0;
-	max.y = 0;
-	max.z = 0;
-	max.iso_x = 0;
-	max.iso_y = 0;
-	while (i < size_y)
+	max = INT_MIN;
+	while (i < map->size_y)
 	{
 		j = 0;
-		while (j < size_x)
+		while (j < map->size_x)
 		{
-			if (map[i][j].z > max.z)
-				max = map[i][j];
+			if (map->map[i][j].z > max)
+				max = map->map[i][j].z;
 			j++;
 		}
+		i++;
 	}
 	return (max);
+}
+
+int	get_min_height(t_fdf_map *map)
+{
+	int			i;
+	int			j;
+	int			min;
+
+	i = 0;
+	min = INT_MAX;
+	while (i < map->size_y)
+	{
+		j = 0;
+		while (j < map->size_x)
+		{
+			if (map->map[i][j].z < min)
+				min = map->map[i][j].z;
+			j++;
+		}
+		i++;
+	}
+	return (min);
 }

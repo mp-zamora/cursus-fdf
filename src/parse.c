@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/08 18:49:10 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:02:26 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_fdf_map	*init_map(char *file)
 		handle_error("Parsing failed.");
 	map->total_size = map->size_x * map->size_y;
 	map->max_coords = get_max_coords(map->map, map->size_x, map->size_y);
+	map->max_z = get_max_height(map);
+	map->min_z = get_min_height(map);
 	return (map);
 }
 
