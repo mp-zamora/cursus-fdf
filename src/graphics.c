@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 19:03:29 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:10:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 {
 	int			i;
 	int			j;
+	uint32_t	color;
 
 	i = 0;
 	while (i < map->size_y)
@@ -84,8 +85,10 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 		j = 0;
 		while (j < map->size_x)
 		{
+			color = get_color(map->map[i][j].iso_x, map->map[i][j].iso_y, \
+					 map->map[i][j], map->map[i][j], map);
 			mlx_put_pixel(img, map->map[i][j].iso_x, \
-				 map->map[i][j].iso_y, 0xFFFFFFFF);
+				 map->map[i][j].iso_y, color);
 			j++;
 		}
 		i++;

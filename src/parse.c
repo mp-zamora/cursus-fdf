@@ -6,11 +6,13 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 19:02:26 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:21:03 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+#include <stdio.h>
 
 t_fdf_map	*init_map(char *file)
 {
