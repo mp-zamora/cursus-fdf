@@ -6,19 +6,27 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:09:57 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:58:48 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_hook(void *param)
+void	close_hook(void *param)
 {
-	mlx_t	*mlx;
+	t_fdf_map **master_map;
+	t_fdf_map *map;
 
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
+	master_map = param;
+	map = (*master_map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(map->mlx);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_SPACE))
+	{
+		(*master_map)->colors[0] = 0x4997d0;
+		(*master_map)->colors[1] = 0xd08249;
+		render_map((*master_map));
+	}
 }
 
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
@@ -70,26 +78,19 @@ void	draw_lines(t_fdf_map *map, mlx_image_t *img)
 	}
 }
 
-void	draw_map(t_fdf_map *map, mlx_image_t *img)
+mlx_image_t	*render_map(t_fdf_map *map)
 {
-	int			i;
-	int			j;
-	uint32_t	color;
+	mlx_image_t	*aux_img;
 
-	i = 0;
-	while (i < map->size_y)
+	aux_img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
+	if (!aux_img)
 	{
-		j = 0;
-		while (j < map->size_x)
-		{
-			color = get_color((float []){map->map[i][j].iso_x, \
-						map->map[i][j].iso_y}, map->map[i][j], \
-						map->map[i][j], map);
-			mlx_put_pixel(img, map->map[i][j].iso_x, \
-					map->map[i][j].iso_y, color);
-			j++;
-		}
-		i++;
+		mlx_close_window(map->mlx);
+		handle_error("MLX failed.");
 	}
-	draw_lines(map, img);
+	draw_lines(map, aux_img);
+	if (map->img)
+		mlx_delete_image(map->mlx, map->img);
+	mlx_image_to_window(map->mlx, aux_img, 0, 0);
+	return (aux_img);
 }

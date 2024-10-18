@@ -6,11 +6,14 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:46:27 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:01:35 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 22:05:04 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+// REMOVE
+#include <stdio.h>
 
 uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 {
@@ -20,6 +23,12 @@ uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 	float	percent;
 
 	percent = get_percent(coords, o, d, m);
+	/*color_a[0] = get_r(m->colors[0]);*/
+	/*color_a[1] = get_g(m->colors[0]);*/
+	/*color_a[2] = get_b(m->colors[0]);*/
+	/*color_b[0] = get_r(m->colors[1]);*/
+	/*color_b[1] = get_g(m->colors[1]);*/
+	/*color_b[2] = get_b(m->colors[1]);*/
 	color_a[0] = get_r(COLOR_A);
 	color_a[1] = get_g(COLOR_A);
 	color_a[2] = get_b(COLOR_A);
@@ -29,6 +38,8 @@ uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 	color_p[0] = (color_b[0] * percent) + (color_a[0] * (1 - percent));
 	color_p[1] = (color_b[1] * percent) + (color_a[1] * (1 - percent));
 	color_p[2] = (color_b[2] * percent) + (color_a[2] * (1 - percent));
+	printf("PERCENT: %f\n", percent);
+	/*printf("COLOR: %#8x\n", (color_p[0] << 24 | color_p[1] << 16 | color_p[2] << 8 | (0xFF)));*/
 	return ((color_p[0] << 24 | color_p[1] << 16 | color_p[2] << 8 | (0xFF)));
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:01:22 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:53:44 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ typedef struct s_coords
 
 typedef struct s_fdf_map
 {
+	mlx_t		*mlx;
+	mlx_image_t	*img;
 	t_coords	**map;
 	int			size_x;
 	int			size_y;
 	int			total_size;
 	int			max_z;
 	int			min_z;
+	uint32_t	*colors;
 	float		*max_coords;
 }	t_fdf_map;
 
@@ -58,10 +61,10 @@ float		*get_offset(t_coords **map, int size_x, int size_y);
 t_coords	**add_scale(t_coords **map, int size_x, int size_y);
 float		get_scale(t_coords **map, int size_x, int size_y);
 /* GRAPHICS */
-void		ft_hook(void *param);
+void		close_hook(void *param);
 void		paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m);
 void		draw_lines(t_fdf_map *map, mlx_image_t *img);
-void		draw_map(t_fdf_map *map, mlx_image_t *img);
+mlx_image_t	*render_map(t_fdf_map *map);
 /* COLOR */
 uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m);
 int			get_r(int rgba);
