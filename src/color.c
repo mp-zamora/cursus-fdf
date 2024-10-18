@@ -6,14 +6,13 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:46:27 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 22:05:04 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:14:28 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-// REMOVE
-#include <stdio.h>
+#include <stdlib.h>
 
 uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 {
@@ -23,23 +22,15 @@ uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 	float	percent;
 
 	percent = get_percent(coords, o, d, m);
-	/*color_a[0] = get_r(m->colors[0]);*/
-	/*color_a[1] = get_g(m->colors[0]);*/
-	/*color_a[2] = get_b(m->colors[0]);*/
-	/*color_b[0] = get_r(m->colors[1]);*/
-	/*color_b[1] = get_g(m->colors[1]);*/
-	/*color_b[2] = get_b(m->colors[1]);*/
-	color_a[0] = get_r(COLOR_A);
-	color_a[1] = get_g(COLOR_A);
-	color_a[2] = get_b(COLOR_A);
-	color_b[0] = get_r(COLOR_B);
-	color_b[1] = get_g(COLOR_B);
-	color_b[2] = get_b(COLOR_B);
+	color_a[0] = get_r(m->palette[m->current_palette][0]);
+	color_a[1] = get_g(m->palette[m->current_palette][0]);
+	color_a[2] = get_b(m->palette[m->current_palette][0]);
+	color_b[0] = get_r(m->palette[m->current_palette][1]);
+	color_b[1] = get_g(m->palette[m->current_palette][1]);
+	color_b[2] = get_b(m->palette[m->current_palette][1]);
 	color_p[0] = (color_b[0] * percent) + (color_a[0] * (1 - percent));
 	color_p[1] = (color_b[1] * percent) + (color_a[1] * (1 - percent));
 	color_p[2] = (color_b[2] * percent) + (color_a[2] * (1 - percent));
-	printf("PERCENT: %f\n", percent);
-	/*printf("COLOR: %#8x\n", (color_p[0] << 24 | color_p[1] << 16 | color_p[2] << 8 | (0xFF)));*/
 	return ((color_p[0] << 24 | color_p[1] << 16 | color_p[2] << 8 | (0xFF)));
 }
 
@@ -56,4 +47,32 @@ int	get_g(int rgba)
 int	get_b(int rgba)
 {
 	return ((rgba) & 0xFF);
+}
+
+uint32_t	**create_palette(void)
+{
+	uint32_t	**palette;
+	int			i;
+
+	palette = (uint32_t **)malloc(sizeof(uint32_t *) * 5);
+	if (!palette)
+		handle_error("Malloc failed.");
+	i = -1;
+	while (++i < 5)
+	{
+		palette[i] = (uint32_t *)malloc(sizeof(uint32_t) * 2);
+		if (!palette[i])
+			handle_error("Malloc failed.");
+	}
+	palette[0][0] = 0x00008B; 
+	palette[0][0] = 0x7DF9FF;
+	palette[1][0] = 0x228B22;
+	palette[1][1] = 0xADFF2F;
+	palette[2][0] = 0xDC143C;
+	palette[2][1] = 0xFFA500;
+	palette[3][0] = 0x4B0082;
+	palette[3][1] = 0xE6E6FA;
+	palette[4][0] = 0xC1440E;
+	palette[4][1] = 0xD69A6D;
+	return (palette);
 }

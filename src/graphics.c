@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:58:48 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:10:26 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	close_hook(void *param)
 		mlx_close_window(map->mlx);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_SPACE))
 	{
-		(*master_map)->colors[0] = 0x4997d0;
-		(*master_map)->colors[1] = 0xd08249;
+		if (map->current_palette < 4)
+			(*master_map)->current_palette++;
+		else
+			(*master_map)->current_palette = 0;
 		render_map((*master_map));
 	}
 }

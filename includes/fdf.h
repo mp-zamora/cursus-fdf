@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:53:44 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:06:24 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define COLOR_A 0xB04E0F
-# define COLOR_B 0xFF0000
+# define COLOR_A1 0xB04E0F
+# define COLOR_B1 0xFF0000
+# define COLOR_A2 0x4997d0
+# define COLOR_B2 0xd08249
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -45,7 +47,9 @@ typedef struct s_fdf_map
 	int			total_size;
 	int			max_z;
 	int			min_z;
-	uint32_t	*colors;
+	int			current_palette;
+	int			palette_amount;
+	uint32_t	**palette;
 	float		*max_coords;
 }	t_fdf_map;
 
@@ -70,7 +74,7 @@ uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m);
 int			get_r(int rgba);
 int			get_g(int rgba);
 int			get_b(int rgba);
-int			get_a(int rgba);
+uint32_t	**create_palette(void);
 /* UTILS */
 float		*get_max_coords(t_coords **map, int size_x, int size_y);
 float		get_od_percent(float x, float y, t_coords o, t_coords d);
