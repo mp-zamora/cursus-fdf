@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 23:06:24 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:19:55 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct s_fdf_map
 	int			min_z;
 	int			current_palette;
 	int			palette_amount;
+	float		zoom;
+	float		translation;
+	float		rotation;
 	uint32_t	**palette;
 	float		*max_coords;
 }	t_fdf_map;
