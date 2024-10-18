@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 20:43:44 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:44:54 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,69 +42,6 @@ float	*get_max_coords(t_coords **map, int size_x, int size_y)
 		i++;
 	}
 	return (max_coords);
-}
-
-float	get_z_percent(int z, int max_z, int min_z)
-{
-	int		dz;
-	float	percent;
-	
-	if (max_z == min_z)
-		return (0);
-	dz = abs(max_z - min_z);
-	percent = (z - min_z) / dz;
-	return (percent);
-}
-
-float	get_od_percent(float x, float y, t_coords o, t_coords d)
-{
-	float	dx;
-	float	dy;
-
-	dx = d.iso_x - o.iso_x;
-	dy = d.iso_y - o.iso_y;
-	if (fabs(dx) > fabs(dy))
-	{
-		if (x == o.iso_x)
-			return (0);
-		if (d.iso_x > o.iso_x)
-			return ((x - o.iso_x) / (d.iso_x - o.iso_x));
-		else if (o.iso_x > d.iso_x)
-			return ((o.iso_x - x) / (o.iso_x - d.iso_x));
-	}
-	else
-	{
-		if (y == o.iso_y)
-			return (0);
-		if (d.iso_y > o.iso_y)
-			return ((y - o.iso_y) / (d.iso_y - o.iso_y));
-		else if (o.iso_y > d.iso_y)
-			return ((o.iso_y - y) / (o.iso_y - d.iso_y));
-	}
-	return (0);
-}
-
-float get_percent(float x, float y, t_coords o, t_coords d, t_fdf_map *m)
-{
-	float	od_percent;
-	float	o_percent;
-	float	d_percent;
-	float	final_percent;
-
-	od_percent = get_od_percent(x, y, o, d);
-	if (d.z > o.z)
-	{
-		o_percent = get_z_percent(o.z, m->max_z, m->min_z);
-		d_percent = get_z_percent(d.z, m->max_z, m->min_z);
-		final_percent = ((d_percent - o_percent) * (od_percent)) + o_percent;
-	}
-	else
-	{
-		o_percent = get_z_percent(d.z, m->max_z, m->min_z);
-		d_percent = get_z_percent(o.z, m->max_z, m->min_z);
-		final_percent = ((d_percent - o_percent) * (1 - od_percent)) + o_percent;
-	}
-	return (final_percent);
 }
 
 int	get_max_height(t_fdf_map *map)
@@ -149,4 +86,31 @@ int	get_min_height(t_fdf_map *map)
 		i++;
 	}
 	return (min);
+}
+
+int	get_max_x(int fd)
+{
+	char	*buffer;
+
+	buffer = get_next_line(fd);
+	if (!buffer)
+		return (0);
+	close (fd);
+	return (ft_countwords(buffer, ' '));
+}
+
+int	get_max_y(int fd)
+{
+	char	*buffer;
+	int		y;
+
+	y = 0;
+	buffer = get_next_line(fd);
+	while (buffer)
+	{
+		y++;
+		buffer = get_next_line(fd);
+	}
+	close (fd);
+	return (y);
 }

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 20:21:03 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:10:33 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,29 @@ t_fdf_map	*init_map(char *file)
 	return (map);
 }
 
+t_coords	*process_string(char *buffer, int size_x, int y)
+{
+	char		**aux_buffers;
+	t_coords	*row_x;
+	int			x;
+
+	x = -1;
+	if (ft_countwords(buffer, ' ') != size_x)
+		handle_error("Incorrect map format.");
+	aux_buffers = ft_split(buffer, ' ');
+	row_x = (t_coords *)malloc(sizeof(t_coords) * size_x);
+	if (!row_x)
+		handle_error("Malloc failed.");
+	while (++x < size_x)
+		row_x[x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54);
+	free_buffers(aux_buffers, size_x);
+	return (row_x);
+}
+
 t_coords	**parse_map(int fd, int size_x, int size_y)
 {
 	t_coords	**map;
 	char		*buffer;
-	char		**aux_buffers;
-	int			x;
 	int			y;
 
 	map = (t_coords **)malloc(sizeof(t_coords *) * size_y);
@@ -48,16 +65,7 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 	y = -1;
 	while (buffer != NULL && ++y < size_y)
 	{
-		x = -1;
-		if (ft_countwords(buffer, ' ') != size_x)
-			handle_error("Incorrect map format.");
-		aux_buffers = ft_split(buffer, ' ');
-		map[y] = (t_coords *)malloc(sizeof(t_coords) * size_x);
-		if (!map[y])
-			handle_error("Malloc failed.");
-		while (++x < size_x)
-			map[y][x] = assign_coords(x, y, ft_atoi(aux_buffers[x]), 0.54);
-		free_buffers(aux_buffers, size_x);
+		map[y] = process_string(buffer, size_x, y);
 		buffer = get_next_line(fd);
 	}
 	if (buffer != NULL || y < size_y - 1)
@@ -68,7 +76,7 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 
 t_coords	assign_coords(int x, int y, int z, float alpha)
 {
-	t_coords coordinates;
+	t_coords	coordinates;
 
 	coordinates.x = x;
 	coordinates.y = y;
@@ -92,20 +100,4 @@ void	free_buffers(char **buffers, int size)
 	while (++i < size)
 		free (buffers[i]);
 	free (buffers);
-}
-
-int	get_max_y(int fd)
-{
-	char	*buffer;
-	int		y;
-
-	y = 0;
-	buffer = get_next_line(fd);
-	while (buffer)
-	{
-		y++;
-		buffer = get_next_line(fd);
-	}
-	close (fd);
-	return (y);
 }

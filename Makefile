@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/10/08 17:47:13 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/10/18 17:53:27 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC =	main.c \
 		parse2.c \
 		graphics.c \
 		utils.c \
+		utils2.c \
 		color.c \
 		get_next_line.c \
 		get_next_line_utils.c

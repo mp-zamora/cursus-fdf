@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/15 20:10:51 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:58:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,28 @@ void	ft_hook(void *param)
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 {
 	int			i;
-	float		dx;
-	float		dy;
+	float		diff[2];
 	float		step;
-	float		x;
-	float		y;
+	float		coords[2];
 	uint32_t	color;
-	
-	dx = d.iso_x - o.iso_x;
-	dy = d.iso_y - o.iso_y;
-	if(fabs(dx) >= fabs(dy))
-		step = fabs(dx);
+
+	diff[0] = d.iso_x - o.iso_x;
+	diff[1] = d.iso_y - o.iso_y;
+	if (fabs(diff[0]) >= fabs(diff[1]))
+		step = fabs(diff[0]);
 	else
-		step = fabs(dy);
-	dx = dx / step;
-	dy = dy / step;
-	x = o.iso_x;
-	y = o.iso_y;
+		step = fabs(diff[1]);
+	diff[0] = diff[0] / step;
+	diff[1] = diff[1] / step;
+	coords[0] = o.iso_x;
+	coords[1] = o.iso_y;
 	i = 0;
 	while (i <= step)
 	{
-		color = get_color(x, y, o, d, m);
-		mlx_put_pixel(img, x, y, color);
-		x += dx;
-		y += dy;
+		color = get_color(coords, o, d, m);
+		mlx_put_pixel(img, coords[0], coords[1], color);
+		coords[0] += diff[0];
+		coords[1] += diff[1];
 		i++;
 	}
 }
@@ -85,10 +83,11 @@ void	draw_map(t_fdf_map *map, mlx_image_t *img)
 		j = 0;
 		while (j < map->size_x)
 		{
-			color = get_color(map->map[i][j].iso_x, map->map[i][j].iso_y, \
-					 map->map[i][j], map->map[i][j], map);
+			color = get_color((float []){map->map[i][j].iso_x, \
+						map->map[i][j].iso_y}, map->map[i][j], \
+						map->map[i][j], map);
 			mlx_put_pixel(img, map->map[i][j].iso_x, \
-				 map->map[i][j].iso_y, color);
+					map->map[i][j].iso_y, color);
 			j++;
 		}
 		i++;
