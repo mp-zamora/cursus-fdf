@@ -6,13 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 19:10:33 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:03:09 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-#include <stdio.h>
 
 t_fdf_map	*init_map(char *file)
 {
@@ -33,7 +31,7 @@ t_fdf_map	*init_map(char *file)
 	return (map);
 }
 
-t_coords	*process_string(char *buffer, int size_x, int y)
+t_coords	*process_row(char *buffer, int size_x, int y)
 {
 	char		**aux_buffers;
 	t_coords	*row_x;
@@ -65,7 +63,7 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 	y = -1;
 	while (buffer != NULL && ++y < size_y)
 	{
-		map[y] = process_string(buffer, size_x, y);
+		map[y] = process_row(buffer, size_x, y);
 		buffer = get_next_line(fd);
 	}
 	if (buffer != NULL || y < size_y - 1)

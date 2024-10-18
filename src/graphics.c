@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 17:58:52 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:09:57 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 	diff[1] = diff[1] / step;
 	coords[0] = o.iso_x;
 	coords[1] = o.iso_y;
-	i = 0;
-	while (i <= step)
+	i = -1;
+	while (++i <= step)
 	{
 		color = get_color(coords, o, d, m);
 		mlx_put_pixel(img, coords[0], coords[1], color);
 		coords[0] += diff[0];
 		coords[1] += diff[1];
-		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:51:30 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 17:52:12 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:02:04 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 float	get_z_percent(int z, int max_z, int min_z)
 {
-	int		dz;
 	float	percent;
 
 	if (max_z == min_z)
 		return (0);
-	dz = abs(max_z - min_z);
-	percent = (z - min_z) / dz;
+	percent = (float)(z - min_z) / (float)(max_z - min_z);
 	return (percent);
 }
 
