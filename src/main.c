@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 22:54:42 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:06:33 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int32_t	main(int argc, char *argv[])
 	if (!(map->mlx))
 		handle_error("MLX failed.");
 	map->img = render_map(map);
-	mlx_loop_hook(map->mlx, close_hook, &map);
+	mlx_loop_hook(map->mlx, close_hook, map);
+	mlx_key_hook(map->mlx, &bonus_hook, &map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
 	free_fdf_map(map);

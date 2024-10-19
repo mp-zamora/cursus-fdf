@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 23:19:55 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:14:11 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define COLOR_A1 0xB04E0F
-# define COLOR_B1 0xFF0000
-# define COLOR_A2 0x4997d0
-# define COLOR_B2 0xd08249
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
 # include <MLX42/MLX42.h>
-# include <stdlib.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
@@ -39,9 +34,6 @@ typedef struct s_coords
 
 typedef struct s_fdf_map
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_coords	**map;
 	int			size_x;
 	int			size_y;
 	int			total_size;
@@ -52,6 +44,9 @@ typedef struct s_fdf_map
 	float		zoom;
 	float		translation;
 	float		rotation;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_coords	**map;
 	uint32_t	**palette;
 	float		*max_coords;
 }	t_fdf_map;
@@ -69,6 +64,7 @@ t_coords	**add_scale(t_coords **map, int size_x, int size_y);
 float		get_scale(t_coords **map, int size_x, int size_y);
 /* GRAPHICS */
 void		close_hook(void *param);
+void		bonus_hook(mlx_key_data_t keydata, void *param);
 void		paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m);
 void		draw_lines(t_fdf_map *map, mlx_image_t *img);
 mlx_image_t	*render_map(t_fdf_map *map);

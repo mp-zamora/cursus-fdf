@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 23:10:26 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:07:18 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 void	close_hook(void *param)
 {
-	t_fdf_map **master_map;
 	t_fdf_map *map;
 
-	master_map = param;
-	map = (*master_map);
+	map = param;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(map->mlx);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_SPACE))
+}
+
+void	bonus_hook(mlx_key_data_t keydata, void *param)
+{
+	t_fdf_map **map;
+
+	map = param;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
-		if (map->current_palette < 4)
-			(*master_map)->current_palette++;
+		if ((*map)->current_palette < 4)
+			(*map)->current_palette++;
 		else
-			(*master_map)->current_palette = 0;
-		render_map((*master_map));
+			(*map)->current_palette = 0;
+		render_map((*map));
 	}
 }
 
