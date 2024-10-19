@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 12:07:18 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/19 13:40:01 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,17 @@ void	bonus_hook(mlx_key_data_t keydata, void *param)
 			(*map)->current_palette++;
 		else
 			(*map)->current_palette = 0;
-		render_map((*map));
+		(*map)->img = render_map((*map));
+	}
+	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS)
+	{
+		add_zoom((*map)->zoom * 1.1, map);
+		(*map)->img = render_map((*map));
+	}
+	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
+	{
+		add_zoom((*map)->zoom * 0.9, map);
+		(*map)->img = render_map((*map));
 	}
 }
 
@@ -89,15 +99,20 @@ mlx_image_t	*render_map(t_fdf_map *map)
 {
 	mlx_image_t	*aux_img;
 
+	if (map->img)
+	{
+		mlx_delete_image(map->mlx, map->img);
+		ft_putstr_fd("Image deleted!\n", 1);
+	}
 	aux_img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
 	if (!aux_img)
 	{
 		mlx_close_window(map->mlx);
 		handle_error("MLX failed.");
 	}
+	ft_putstr_fd("Going to draw the lines!\n", 1);
 	draw_lines(map, aux_img);
-	if (map->img)
-		mlx_delete_image(map->mlx, map->img);
+	ft_putstr_fd("Going to put the img to the window!\n", 1);
 	mlx_image_to_window(map->mlx, aux_img, 0, 0);
 	return (aux_img);
 }

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 12:14:11 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/10/19 13:34:33 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_fdf_map
 	int			max_z;
 	int			min_z;
 	int			current_palette;
-	int			palette_amount;
 	float		zoom;
 	float		translation;
 	float		rotation;
+	char		*file;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_coords	**map;
@@ -84,6 +84,8 @@ int			get_max_height(t_fdf_map *map);
 int			get_min_height(t_fdf_map *map);
 int			get_max_y(int fd);
 int			get_max_x(int fd);
+/* BONUS */
+void		add_zoom(float zoom, t_fdf_map **map);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);

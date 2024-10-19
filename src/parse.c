@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 23:09:53 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:34:50 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ t_fdf_map	*init_map(char *file)
 	map->max_coords = get_max_coords(map->map, map->size_x, map->size_y);
 	map->max_z = get_max_height(map);
 	map->min_z = get_min_height(map);
+	map->file = file;
+	map->zoom = 1;
+	map->translation = 0;
+	map->rotation = 0;
 	map->current_palette = 0;
 	map->palette = create_palette();
-	/*map->colors = (uint32_t *)malloc(sizeof(uint32_t) * 2);*/
-	/*if (!map->colors)*/
-	/*	handle_error("Malloc failed.");*/
-	/*map->colors[0] = COLOR_A1;*/
-	/*map->colors[1] = COLOR_B1;*/
 	return (map);
 }
 
