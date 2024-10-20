@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:56:56 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 13:28:24 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:33:47 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,38 @@ mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map)
 	(*map)->center[1] += (HEIGHT * ty);
 	add_x_offset(map, (WIDTH * tx));
 	add_y_offset(map, (HEIGHT * ty));
+	return (render_map((*map)));
+}
+
+mlx_image_t	*add_rotation(float degrees, t_fdf_map **map)
+{
+	int		i;
+	int		j;
+	float	center[2];
+	float	*max_coords;
+	float	*min_coords;
+
+	max_coords = get_max_coords((*map)->map, (*map)->size_x, (*map)->size_y);
+	min_coords = get_min_coords((*map)->map, (*map)->size_x, (*map)->size_y);
+	center[0] = (max_coords[0] - min_coords[0]) / 2;
+	center[1] = (max_coords[1] - min_coords[1]) / 2;
+	i = -1;
+	while (++i < (*map)->size_y)
+	{
+		j = -1;
+		while (++j < (*map)->size_x)
+		{
+			(*map)->map[i][j].iso_x -= center[0];
+			(*map)->map[i][j].iso_y -= center[1];
+			(*map)->map[i][j].iso_x = (*map)->map[i][j].iso_x * cosf((degrees * PI) \
+				/ 180) - (*map)->map[i][j].iso_y * sinf((degrees * PI) / 180);
+			(*map)->map[i][j].iso_y = (*map)->map[i][j].iso_x * sinf((degrees * PI) \
+				/ 180) + (*map)->map[i][j].iso_y * cosf((degrees * PI) / 180);
+			(*map)->map[i][j].iso_x += center[0];
+			(*map)->map[i][j].iso_y += center[1];
+		}
+	}
+	(*map)->angle += degrees;
 	return (render_map((*map)));
 }
 

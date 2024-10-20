@@ -6,15 +6,22 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 13:13:42 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:40:51 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WIDTH 1280
-# define HEIGHT 720
+# ifndef WIDTH
+#	define WIDTH 1280
+# endif
+# ifndef HEIGHT
+#	define HEIGHT 720
+# endif
+# ifndef PI
+#	define PI 3.14159265358979323846
+# endif
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -41,7 +48,7 @@ typedef struct s_fdf_map
 	int			min_z;
 	int			current_palette;
 	float		zoom;
-	float		rotation;
+	float		angle;
 	float		*center;
 	float		*max_coords;
 	char		*file;
@@ -78,6 +85,7 @@ uint32_t	**create_palette(void);
 float		get_od_percent(float x, float y, t_coords o, t_coords d);
 float		get_z_percent(int z, int max_z, int min_z);
 float		get_percent(float coords[2], t_coords o, t_coords d, t_fdf_map *m);
+float		*get_min_coords(t_coords **map, int size_x, int size_y);
 /* UTILS */
 float		*get_max_coords(t_coords **map, int size_x, int size_y);
 int			get_max_height(t_fdf_map *map);
@@ -87,6 +95,7 @@ int			get_max_x(int fd);
 /* BONUS */
 mlx_image_t	*add_zoom(float zoom, t_fdf_map **map);
 mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map);
+mlx_image_t	*add_rotation(float degrees, t_fdf_map **map);
 void		center_map(t_fdf_map **map);
 void		add_x_offset(t_fdf_map **map, float offset);
 void		add_y_offset(t_fdf_map **map, float offset);
