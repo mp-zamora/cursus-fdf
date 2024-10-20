@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:46:27 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 23:14:28 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:15:55 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ uint32_t	**create_palette(void)
 		if (!palette[i])
 			handle_error("Malloc failed.");
 	}
-	palette[0][0] = 0x00008B; 
+	palette[0][0] = 0x00008B;
 	palette[0][0] = 0x7DF9FF;
 	palette[1][0] = 0x228B22;
 	palette[1][1] = 0xADFF2F;

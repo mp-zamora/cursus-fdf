@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 13:40:01 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:27:31 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_hook(void *param)
 {
-	t_fdf_map *map;
+	t_fdf_map	*map;
 
 	map = param;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
@@ -23,7 +23,7 @@ void	close_hook(void *param)
 
 void	bonus_hook(mlx_key_data_t keydata, void *param)
 {
-	t_fdf_map **map;
+	t_fdf_map	**map;
 
 	map = param;
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
@@ -62,13 +62,14 @@ void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 		step = fabs(diff[1]);
 	diff[0] = diff[0] / step;
 	diff[1] = diff[1] / step;
-	coords[0] = o.iso_x;
-	coords[1] = o.iso_y;
+	ft_memcpy(coords, (float [2]){o.iso_x, o.iso_y}, sizeof(coords));
 	i = -1;
 	while (++i <= step)
 	{
 		color = get_color(coords, o, d, m);
-		mlx_put_pixel(img, coords[0], coords[1], color);
+		if (coords[0] > 0 && coords[1] > 0
+			&& coords[0] < WIDTH - 1 && coords[1] < HEIGHT - 1)
+			mlx_put_pixel(img, coords[0], coords[1], color);
 		coords[0] += diff[0];
 		coords[1] += diff[1];
 	}
@@ -100,19 +101,14 @@ mlx_image_t	*render_map(t_fdf_map *map)
 	mlx_image_t	*aux_img;
 
 	if (map->img)
-	{
 		mlx_delete_image(map->mlx, map->img);
-		ft_putstr_fd("Image deleted!\n", 1);
-	}
 	aux_img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
 	if (!aux_img)
 	{
 		mlx_close_window(map->mlx);
 		handle_error("MLX failed.");
 	}
-	ft_putstr_fd("Going to draw the lines!\n", 1);
 	draw_lines(map, aux_img);
-	ft_putstr_fd("Going to put the img to the window!\n", 1);
 	mlx_image_to_window(map->mlx, aux_img, 0, 0);
 	return (aux_img);
 }

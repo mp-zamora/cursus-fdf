@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 13:34:33 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:26:27 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int			get_max_y(int fd);
 int			get_max_x(int fd);
 /* BONUS */
 void		add_zoom(float zoom, t_fdf_map **map);
+void		center_map(t_fdf_map **map);
+void		add_x_offset(t_fdf_map **map, float offset);
+void		add_y_offset(t_fdf_map **map, float offset);
 /* MAIN */
 void		handle_error(char *message);
 void		print_map(int **map, int size_y, int size_x);
