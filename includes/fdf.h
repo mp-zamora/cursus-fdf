@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 10:26:27 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:13:42 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ typedef struct s_fdf_map
 	int			min_z;
 	int			current_palette;
 	float		zoom;
-	float		translation;
 	float		rotation;
+	float		*center;
+	float		*max_coords;
 	char		*file;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_coords	**map;
 	uint32_t	**palette;
-	float		*max_coords;
 }	t_fdf_map;
 
 /* PARSE */
@@ -74,18 +74,19 @@ int			get_r(int rgba);
 int			get_g(int rgba);
 int			get_b(int rgba);
 uint32_t	**create_palette(void);
-/* UTILS */
-float		*get_max_coords(t_coords **map, int size_x, int size_y);
+/* UTILS 2 */
 float		get_od_percent(float x, float y, t_coords o, t_coords d);
 float		get_z_percent(int z, int max_z, int min_z);
 float		get_percent(float coords[2], t_coords o, t_coords d, t_fdf_map *m);
-/* UTILS 2 */
+/* UTILS */
+float		*get_max_coords(t_coords **map, int size_x, int size_y);
 int			get_max_height(t_fdf_map *map);
 int			get_min_height(t_fdf_map *map);
 int			get_max_y(int fd);
 int			get_max_x(int fd);
 /* BONUS */
-void		add_zoom(float zoom, t_fdf_map **map);
+mlx_image_t	*add_zoom(float zoom, t_fdf_map **map);
+mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map);
 void		center_map(t_fdf_map **map);
 void		add_x_offset(t_fdf_map **map, float offset);
 void		add_y_offset(t_fdf_map **map, float offset);

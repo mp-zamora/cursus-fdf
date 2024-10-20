@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 13:34:50 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:21:36 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ t_fdf_map	*init_map(char *file)
 	map->min_z = get_min_height(map);
 	map->file = file;
 	map->zoom = 1;
-	map->translation = 0;
+	map->center = (float *)malloc(sizeof(float) * 2);
+	if (!map->center)
+		handle_error("Malloc failed.");
+	map->center[0] = WIDTH / 2 - 1;
+	map->center[1] = HEIGHT / 2 - 1;
 	map->rotation = 0;
 	map->current_palette = 0;
 	map->palette = create_palette();

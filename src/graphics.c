@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 10:27:31 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:30:41 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ void	bonus_hook(mlx_key_data_t keydata, void *param)
 		(*map)->img = render_map((*map));
 	}
 	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS)
-	{
-		add_zoom((*map)->zoom * 1.1, map);
-		(*map)->img = render_map((*map));
-	}
+		(*map)->img = add_zoom((*map)->zoom * 1.1, map);
 	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
-	{
-		add_zoom((*map)->zoom * 0.9, map);
-		(*map)->img = render_map((*map));
-	}
+		(*map)->img = add_zoom((*map)->zoom * 0.9, map);
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		(*map)->img = add_translation(0.1, 0, map);
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+		(*map)->img = add_translation(-0.1, 0, map);
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+		(*map)->img = add_translation(0, 0.1, map);
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+		(*map)->img = add_translation(0, -0.1, map);
 }
 
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
