@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 13:52:00 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:15:30 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_fdf_map	*init_map(char *file)
 		handle_error("Malloc failed.");
 	map->size_x = get_max_x(open_file(file));
 	map->size_y = get_max_y(open_file(file));
+	map->radians = 0.54;
 	map->map = parse_map(open_file(file), map->size_x, map->size_y);
 	if (!map)
 		handle_error("Parsing failed.");
@@ -35,7 +36,6 @@ t_fdf_map	*init_map(char *file)
 		handle_error("Malloc failed.");
 	map->center[0] = WIDTH / 2 - 1;
 	map->center[1] = HEIGHT / 2 - 1;
-	map->angle = 0;
 	map->current_palette = 0;
 	map->palette = create_palette();
 	return (map);
@@ -80,6 +80,26 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 		handle_error("Incorrect map format.");
 	close(fd);
 	return (add_scale(add_offset(map, size_x, size_y), size_x, size_y));
+}
+
+t_coords	**recalculate_map(t_fdf_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < map->size_y)
+	{
+		j = -1;
+		while (++j < map->size_x)
+		{
+			map->map[i][j] = assign_coords(map->map[i][j].x, map->map[i][j].y, \
+								map->map[i][j].z, map->radians);
+		}
+	}
+	map->map = add_scale(add_offset(map->map, map->size_x, map->size_y), \
+					  map->size_x, map->size_y);
+	return (map->map);
 }
 
 t_coords	assign_coords(int x, int y, int z, float alpha)

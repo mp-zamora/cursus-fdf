@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 16:40:51 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:23:44 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_fdf_map
 	int			min_z;
 	int			current_palette;
 	float		zoom;
-	float		angle;
+	float		radians;
 	float		*center;
 	float		*max_coords;
 	char		*file;
@@ -62,6 +62,7 @@ typedef struct s_fdf_map
 t_fdf_map	*init_map(char *file);
 t_coords	*process_row(char *buffer, int size_x, int y);
 t_coords	**parse_map(int fd, int size_x, int size_y);
+t_coords	**recalculate_map(t_fdf_map *map);
 t_coords	assign_coords(int x, int y, int z, float alpha);
 void		free_buffers(char **buffers, int size);
 /* PARSE2 */
@@ -69,6 +70,7 @@ t_coords	**add_offset(t_coords **map, int size_x, int size_y);
 float		*get_offset(t_coords **map, int size_x, int size_y);
 t_coords	**add_scale(t_coords **map, int size_x, int size_y);
 float		get_scale(t_coords **map, int size_x, int size_y);
+t_coords	**apply_zoom(t_coords **map, int size_x, int size_y, float zoom);
 /* GRAPHICS */
 void		close_hook(void *param);
 void		bonus_hook(mlx_key_data_t keydata, void *param);

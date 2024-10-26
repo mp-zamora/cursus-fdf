@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:12:39 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/19 13:29:42 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:25:45 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,32 @@ float	*get_offset(t_coords **map, int size_x, int size_y)
 	return (offset);
 }
 
-t_coords	**add_scale(t_coords **map, int size_x, int size_y)
+t_coords	**apply_zoom(t_coords **map, int size_x, int size_y, float zoom)
 {
 	int		i;
 	int		j;
-	float	scale;
 
-	scale = get_scale(map, size_x, size_y);
 	i = 0;
 	while (i < size_y)
 	{
 		j = 0;
 		while (j < size_x)
 		{
-			map[i][j].iso_x *= scale;
-			map[i][j].iso_y *= scale;
+			map[i][j].iso_x *= zoom;
+			map[i][j].iso_y *= zoom;
 			j++;
 		}
 		i++;
 	}
 	return (map);
+}
+
+t_coords	**add_scale(t_coords **map, int size_x, int size_y)
+{
+	float	scale;
+
+	scale = get_scale(map, size_x, size_y);
+	return (apply_zoom(map, size_x, size_y, scale));
 }
 
 float	get_scale(t_coords **map, int size_x, int size_y)
