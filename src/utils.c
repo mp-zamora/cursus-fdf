@@ -6,15 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 21:07:52 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:20:48 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-// REMOVE
-#include <stdio.h>
-// REMOVE
 
 float	*get_max_coords(t_coords **map, int size_x, int size_y)
 {

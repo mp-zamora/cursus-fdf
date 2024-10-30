@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 20:35:43 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:25:08 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_coords	**recalculate_map(t_fdf_map *map)
 		}
 	}
 	map->map = add_scale(add_offset(map->map, map->size_x, map->size_y), \
-					  map->size_x, map->size_y);
+					map->size_x, map->size_y);
 	return (map->map);
 }
 
@@ -119,16 +119,4 @@ t_coords	assign_coords(int x, int y, int z, float alpha)
 				+ y * sinf(alpha + 2) \
 				+ z * sinf(alpha - 2));
 	return (coordinates);
-}
-
-void	free_buffers(char **buffers, int size)
-{
-	int	i;
-
-	i = -1;
-	if (!buffers)
-		return ;
-	while (++i < size)
-		free (buffers[i]);
-	free (buffers);
 }

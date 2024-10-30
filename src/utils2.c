@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:51:30 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 16:40:23 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:24:47 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,16 @@ float	*get_min_coords(t_coords **map, int size_x, int size_y)
 		i++;
 	}
 	return (min_coords);
+}
+
+void	free_buffers(char **buffers, int size)
+{
+	int	i;
+
+	i = -1;
+	if (!buffers)
+		return ;
+	while (++i < size)
+		free (buffers[i]);
+	free (buffers);
 }
