@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 10:28:42 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:38:06 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	free_fdf_map(t_fdf_map *map)
 		free (map->palette);
 		i = -1;
 	}
+	if (map->center)
+		free (map->center);
 	if (map->map)
 	{
 		while (++i < map->size_y)

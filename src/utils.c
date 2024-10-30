@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 18:44:54 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:37:17 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	get_max_x(int fd)
 	buffer = get_next_line(fd);
 	if (!buffer)
 		return (0);
+	free (buffer);
 	close (fd);
 	return (ft_countwords(buffer, ' '));
 }
@@ -109,8 +110,11 @@ int	get_max_y(int fd)
 	while (buffer)
 	{
 		y++;
+		free (buffer);
 		buffer = get_next_line(fd);
 	}
+	if (buffer)
+		free (buffer);
 	close (fd);
 	return (y);
 }

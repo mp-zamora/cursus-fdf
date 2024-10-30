@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:38:49 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/26 11:15:30 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:35:43 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ t_coords	**parse_map(int fd, int size_x, int size_y)
 	while (buffer != NULL && ++y < size_y)
 	{
 		map[y] = process_row(buffer, size_x, y);
+		free (buffer);
 		buffer = get_next_line(fd);
 	}
 	if (buffer != NULL || y < size_y - 1)
 		handle_error("Incorrect map format.");
+	if (buffer)
+		free (buffer);
 	close(fd);
 	return (add_scale(add_offset(map, size_x, size_y), size_x, size_y));
 }
