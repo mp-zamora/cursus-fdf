@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:51:30 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 21:02:04 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:24:47 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,40 @@ float	get_percent(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 		final_percent = (d_percent - o_percent) * (1 - od_percent) + o_percent;
 	}
 	return (final_percent);
+}
+
+float	*get_min_coords(t_coords **map, int size_x, int size_y)
+{
+	int		i;
+	int		j;
+	float	*min_coords;
+
+	i = 0;
+	min_coords = get_max_coords(map, size_x, size_y);
+	while (i < size_y)
+	{
+		j = 0;
+		while (j < size_x)
+		{
+			if (map[i][j].iso_x < min_coords[0])
+				min_coords[0] = map[i][j].iso_x;
+			if (map[i][j].iso_y < min_coords[1])
+				min_coords[1] = map[i][j].iso_y;
+			j++;
+		}
+		i++;
+	}
+	return (min_coords);
+}
+
+void	free_buffers(char **buffers, int size)
+{
+	int	i;
+
+	i = -1;
+	if (!buffers)
+		return ;
+	while (++i < size)
+		free (buffers[i]);
+	free (buffers);
 }

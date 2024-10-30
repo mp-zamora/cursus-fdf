@@ -6,15 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/18 18:44:54 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:20:48 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-// REMOVE
-#include <stdio.h>
-// REMOVE
 
 float	*get_max_coords(t_coords **map, int size_x, int size_y)
 {
@@ -91,12 +87,15 @@ int	get_min_height(t_fdf_map *map)
 int	get_max_x(int fd)
 {
 	char	*buffer;
+	int		words;
 
 	buffer = get_next_line(fd);
 	if (!buffer)
 		return (0);
 	close (fd);
-	return (ft_countwords(buffer, ' '));
+	words = ft_countwords(buffer, ' ');
+	free (buffer);
+	return (words);
 }
 
 int	get_max_y(int fd)
@@ -109,8 +108,11 @@ int	get_max_y(int fd)
 	while (buffer)
 	{
 		y++;
+		free (buffer);
 		buffer = get_next_line(fd);
 	}
+	if (buffer)
+		free (buffer);
 	close (fd);
 	return (y);
 }

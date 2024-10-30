@@ -6,11 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:17:08 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:50 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:16:21 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "get_next_line.h"
 
 t_gnl_list	*initialize_list(t_gnl_list **lst, int fd)
 {
