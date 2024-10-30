@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:48:38 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 20:37:17 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:07:52 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,15 @@ int	get_min_height(t_fdf_map *map)
 int	get_max_x(int fd)
 {
 	char	*buffer;
+	int		words;
 
 	buffer = get_next_line(fd);
 	if (!buffer)
 		return (0);
-	free (buffer);
 	close (fd);
-	return (ft_countwords(buffer, ' '));
+	words = ft_countwords(buffer, ' ');
+	free (buffer);
+	return (words);
 }
 
 int	get_max_y(int fd)
