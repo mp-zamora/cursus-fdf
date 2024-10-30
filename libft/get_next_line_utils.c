@@ -6,11 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:23:47 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:55 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:16:31 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/26 11:23:44 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:15:15 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # endif
 
 # include "../libft/libft.h"
-# include "get_next_line.h"
+# include "../libft/get_next_line.h"
 # include <MLX42/MLX42.h>
 # include <fcntl.h>
 # include <limits.h>
