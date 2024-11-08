@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/26 11:10:57 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:25:52 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void	bonus_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 		(*map)->img = add_translation(0, -0.1, map);
 	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
-		(*map)->img = add_rotation(10, map);
+		(*map)->img = add_rotation(0.3, map);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		(*map)->img = add_rotation(-10, map);
+		(*map)->img = add_rotation(-0.3, map);
 }
 
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 {
 	int			i;
 	float		diff[2];
-	float		step;
+	float	step;
 	float		coords[2];
 	uint32_t	color;
 

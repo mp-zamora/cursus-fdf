@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 21:22:19 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:52:01 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,21 @@ typedef struct s_fdf_map
 	int			min_z;
 	int			current_palette;
 	float		zoom;
-	float		radians;
+	float		scale;
+	float		theta;
 	float		*center;
 	float		*max_coords;
 	char		*file;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_coords	**map;
+	t_coords	**original;
 	uint32_t	**palette;
 }	t_fdf_map;
 
 /* PARSE */
 t_fdf_map	*init_map(char *file);
+void		assign_data(t_fdf_map **fdf_map);
 t_coords	*process_row(char *buffer, int size_x, int y);
 t_coords	**parse_map(int fd, int size_x, int size_y);
 t_coords	**recalculate_map(t_fdf_map *map);
@@ -97,7 +100,7 @@ int			get_max_x(int fd);
 /* BONUS */
 mlx_image_t	*add_zoom(float zoom, t_fdf_map **map);
 mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map);
-mlx_image_t	*add_rotation(float degrees, t_fdf_map **map);
+mlx_image_t	*add_rotation(float theta, t_fdf_map **map);
 /* BONUS 2 */
 void		center_map(t_fdf_map **map);
 void		add_x_offset(t_fdf_map **map, float offset);
