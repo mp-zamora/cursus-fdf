@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/08 19:25:52 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/11/08 20:43:09 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	bonus_hook(mlx_key_data_t keydata, void *param)
 		(*map)->img = add_rotation(0.3, map);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		(*map)->img = add_rotation(-0.3, map);
+	if (keydata.key == MLX_KEY_T && keydata.action == MLX_PRESS)
+		(*map)->img = perspective_projection(1, map);
+	if (keydata.key == MLX_KEY_Y && keydata.action == MLX_PRESS)
+		(*map)->img = perspective_projection(2, map);
+	if (keydata.key == MLX_KEY_U && keydata.action == MLX_PRESS)
+		(*map)->img = perspective_projection(3, map);
 }
 
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)

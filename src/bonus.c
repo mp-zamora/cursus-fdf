@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:56:56 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/08 20:12:30 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/11/08 20:41:57 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,37 @@ mlx_image_t	*add_rotation(float theta, t_fdf_map **map)
 	(*map)->map = apply_zoom((*map)->map, (*map)->size_x, \
 						(*map)->size_y, (*map)->zoom);
 	center_map(map);
+	return (render_map((*map)));
+}
+
+mlx_image_t *perspective_projection(int projection, t_fdf_map **map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < (*map)->size_y)
+	{
+		j = -1;
+		while (++j < (*map)->size_x)
+		{
+			if (projection == 1)
+			{
+				(*map)->map[i][j].iso_x = (*map)->original[i][j].x;
+				(*map)->map[i][j].iso_y = (*map)->original[i][j].y;
+			}
+			else if (projection == 2)
+			{
+				(*map)->map[i][j].iso_x = (*map)->original[i][j].x;
+				(*map)->map[i][j].iso_y = (*map)->original[i][j].z;
+			}
+			else if (projection == 3)
+			{
+				(*map)->map[i][j].iso_x = (*map)->original[i][j].y;
+				(*map)->map[i][j].iso_y = (*map)->original[i][j].z;
+			}
+		}
+	}
+	(*map)->map = add_scale((*map)->map, (*map)->size_x, (*map)->size_y);
 	return (render_map((*map)));
 }

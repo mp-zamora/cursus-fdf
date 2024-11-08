@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/08 19:52:01 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/11/08 20:42:22 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int			get_max_x(int fd);
 mlx_image_t	*add_zoom(float zoom, t_fdf_map **map);
 mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map);
 mlx_image_t	*add_rotation(float theta, t_fdf_map **map);
+mlx_image_t *perspective_projection(int projection, t_fdf_map **map);
 /* BONUS 2 */
 void		center_map(t_fdf_map **map);
 void		add_x_offset(t_fdf_map **map, float offset);

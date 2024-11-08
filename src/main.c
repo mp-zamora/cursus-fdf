@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 20:38:06 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:29:18 by archangelus      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	free_fdf_map(t_fdf_map *map)
 		while (++i < map->size_y)
 			free (map->map[i]);
 		free (map->map);
+	}
+	if (map->original)
+	{
+		while (++i < map->size_y)
+			free (map->original[i]);
+		free (map->original);
 	}
 	free (map);
 }
