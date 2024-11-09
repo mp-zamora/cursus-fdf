@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:21:14 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/09 17:37:34 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:31:44 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	center_map(t_fdf_map **map)
 {
 	float	*max_coords;
+	float	center[2];
 	float	adjustment[2];
 
+	center[0] = (WIDTH / 2) - 1 + (*map)->translation[0];
+	center[1] = (HEIGHT / 2) - 1 + (*map)->translation[1];
+	if ((*map)->projection != 0)
+	{
+		center[0] = WIDTH / 2 - 1;
+		center[1] = HEIGHT / 2 - 1;
+	}
 	adjustment[0] = 0;
 	adjustment[1] = 1;
 	max_coords = get_max_coords((*map)->map, (*map)->size_x, (*map)->size_y);
-	if ((max_coords[0] / 2 - 1) != (*map)->center[0])
-		adjustment[0] = (*map)->center[0] - (max_coords[0] / 2 - 1);
-	if ((max_coords[1] / 2 - 1) != (*map)->center[1])
-		adjustment[1] = (*map)->center[1] - (max_coords[1] / 2 - 1);
+	if ((max_coords[0] / 2 - 1) != center[0])
+		adjustment[0] = center[0] - (max_coords[0] / 2 - 1);
+	if ((max_coords[1] / 2 - 1) != center[1])
+		adjustment[1] = center[1] - (max_coords[1] / 2 - 1);
 	if (adjustment[0] != 0)
 		add_x_offset(map, adjustment[0]);
 	if (adjustment[1] != 0)

@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/11/09 17:42:18 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/11/09 17:59:37 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,22 @@ SRC =	main.c \
 		utils2.c \
 		utils3.c \
 		color.c \
-		hooks.c \
-		bonus.c
+		hooks.c
+
+BSRC =	main.c \
+		parse.c \
+		parse2.c \
+		graphics.c \
+		utils.c \
+		utils2.c \
+		utils3.c \
+		color.c \
+		hooks_bonus.c \
+		actions_bonus.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
+BSRCS = $(addprefix $(SRC_PATH), $(BSRC))
 OBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(SRCS))
+BOBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(BSRCS))
 INC = -I./MLX42/include -I ./includes/
 LIB = $(addprefix $(LIB_PATH), libft.a)
 MLX = $(addprefix $(MLX_PATH), build/libmlx42.a)
@@ -77,6 +89,12 @@ $(MLX):
 $(NAME): $(MLX) $(LIB) $(OBJS)
 	@printf "$(YELLOW)Building $(NAME)...$(RESET) \n"
 	@$(CC) $(CFLAGS) $(OBJS) $(INC) $(MLX) $(LIB) $(CLIBS) -o $(NAME) && \
+		printf "$(GREEN)✔ Build succesful!$(RESET) \n" || \
+		printf "$(RED)✘ Build failed!$(RESET) \n"
+
+bonus: $(MLX) $(LIB) $(BOBJS)
+	@printf "$(YELLOW)Building $(NAME) BONUS...$(RESET) \n"
+	@$(CC) $(CFLAGS) $(BOBJS) $(INC) $(MLX) $(LIB) $(CLIBS) -o $(NAME) && \
 		printf "$(GREEN)✔ Build succesful!$(RESET) \n" || \
 		printf "$(RED)✘ Build failed!$(RESET) \n"
 

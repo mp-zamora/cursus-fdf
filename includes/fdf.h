@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:31:22 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/09 17:47:57 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:05:16 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_fdf_map
 	float		zoom;
 	float		scale;
 	float		theta;
-	float		*center;
+	float		*translation;
 	float		*max_coords;
 	char		*file;
 	mlx_t		*mlx;
@@ -97,15 +97,15 @@ void		center_map(t_fdf_map **map);
 void		add_x_offset(t_fdf_map **map, float offset);
 void		add_y_offset(t_fdf_map **map, float offset);
 t_coords	**recalculate_map(t_fdf_map *map);
-/* BONUS */
+/* ACTIONS_BONUS */
 mlx_image_t	*add_zoom(float zoom, t_fdf_map **map);
 mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map);
 mlx_image_t	*add_rotation(float theta, t_fdf_map **map);
 void		apply_projection_change(int projection, t_fdf_map **map);
-mlx_image_t *perspective_projection(int projection, t_fdf_map **map);
-/* HOOKS */
+mlx_image_t	*perspective_projection(int projection, t_fdf_map **map);
+/* HOOKS & HOOKS_BONUS */
 void		close_hook(void *param);
-void		bonus_hook(mlx_key_data_t keydata, void *param);
+void		key_hook(mlx_key_data_t keydata, void *param);
 void		handle_projection_key(mlx_key_data_t keydata, t_fdf_map **map);
 void		handle_translation_key(mlx_key_data_t keydata, t_fdf_map **map);
 void		handle_zoom_rotation_key(mlx_key_data_t keydata, t_fdf_map **map);

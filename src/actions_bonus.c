@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
+/*   actions_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:56:56 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/09 17:34:07 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:30:25 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ mlx_image_t	*add_zoom(float zoom, t_fdf_map **map)
 
 mlx_image_t	*add_translation(float tx, float ty, t_fdf_map **map)
 {
-	(*map)->center[0] += (WIDTH * tx);
-	(*map)->center[1] += (HEIGHT * ty);
+	if ((*map)->projection != 0)
+		return (render_map((*map)));
+	(*map)->translation[0] += (WIDTH * tx);
+	(*map)->translation[1] += (HEIGHT * ty);
 	add_x_offset(map, (WIDTH * tx));
 	add_y_offset(map, (HEIGHT * ty));
 	return (render_map((*map)));
@@ -77,11 +79,12 @@ void	apply_projection_change(int projection, t_fdf_map **map)
 			if (projection == 1)
 				(*map)->map[i][j].iso_y = (*map)->original[i][j].y;
 			if (projection == 2 || projection == 3)
-				(*map)->map[i][j].iso_y = (*map)->original[i][j].z;
+				(*map)->map[i][j].iso_y = (-1) * (*map)->original[i][j].z;
 			if (projection == 3)
 				(*map)->map[i][j].iso_x = (*map)->original[i][j].y;
 		}
 	}
+	(*map)->map = add_offset((*map)->map, (*map)->size_x, (*map)->size_y);
 }
 
 mlx_image_t	*perspective_projection(int projection, t_fdf_map **map)

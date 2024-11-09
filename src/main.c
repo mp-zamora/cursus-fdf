@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/09 17:41:10 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:05:31 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	free_fdf_map(t_fdf_map *map)
 		return ;
 	if (map->max_coords)
 		free (map->max_coords);
-	if (map->center)
-		free (map->center);
+	if (map->translation)
+		free (map->translation);
 	free_fdf_map_arrays(map);
 	free (map);
 }
@@ -84,7 +84,7 @@ int32_t	main(int argc, char *argv[])
 	center_map(&map);
 	map->img = render_map(map);
 	mlx_loop_hook(map->mlx, close_hook, map);
-	mlx_key_hook(map->mlx, &bonus_hook, &map);
+	mlx_key_hook(map->mlx, &key_hook, &map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
 	free_fdf_map(map);
