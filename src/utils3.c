@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus2.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:21:14 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/30 21:21:25 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:37:34 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,24 @@ void	add_y_offset(t_fdf_map **map, float offset)
 		while (++j < (*map)->size_x)
 			(*map)->map[i][j].iso_y += offset;
 	}
+}
+
+t_coords	**recalculate_map(t_fdf_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < map->size_y)
+	{
+		j = -1;
+		while (++j < map->size_x)
+		{
+			map->map[i][j] = assign_coords(map->map[i][j].x, map->map[i][j].y, \
+								map->map[i][j].z);
+		}
+	}
+	map->map = apply_zoom(add_offset(map->map, map->size_x, map->size_y), \
+					map->size_x, map->size_y, map->scale);
+	return (map->map);
 }

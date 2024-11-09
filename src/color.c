@@ -6,13 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:46:27 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/20 10:15:55 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:36:04 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-#include <stdlib.h>
 
 uint32_t	get_color(float coords[2], t_coords o, t_coords d, t_fdf_map *m)
 {

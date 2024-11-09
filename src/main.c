@@ -6,7 +6,7 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:27:02 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/11/08 22:17:28 by archangelus      ###   ########.fr       */
+/*   Updated: 2024/11/09 17:41:10 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,22 @@ int	open_file(char *file)
 	return (fd);
 }
 
-void	print_map(int **map, int size_y, int size_x)
-{
-	int	y;
-	int	x;
-
-	y = 1;
-	while (y <= size_y)
-	{
-		x = -1;
-		while (++x < size_x)
-		{
-			ft_putnbr_fd(map[size_y - y][x], 1);
-			ft_putstr_fd(" ", 1);
-		}
-		ft_putstr_fd("\n", 1);
-		y++;
-	}
-}
-
 void	free_fdf_map(t_fdf_map *map)
 {
-	int	i;
-
 	if (!map)
 		return ;
 	if (map->max_coords)
 		free (map->max_coords);
+	if (map->center)
+		free (map->center);
+	free_fdf_map_arrays(map);
+	free (map);
+}
+
+void	free_fdf_map_arrays(t_fdf_map *map)
+{
+	int	i;
+
 	if (map->palette)
 	{
 		i = -1;
@@ -65,8 +54,6 @@ void	free_fdf_map(t_fdf_map *map)
 			free (map->palette[i]);
 		free (map->palette);
 	}
-	if (map->center)
-		free (map->center);
 	if (map->map)
 	{
 		i = -1;
@@ -81,7 +68,6 @@ void	free_fdf_map(t_fdf_map *map)
 			free (map->original[i]);
 		free (map->original);
 	}
-	free (map);
 }
 
 int32_t	main(int argc, char *argv[])

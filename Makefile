@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/10/30 21:22:00 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/11/09 17:42:18 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,10 @@ SRC =	main.c \
 		graphics.c \
 		utils.c \
 		utils2.c \
+		utils3.c \
 		color.c \
-		bonus.c \
-		bonus2.c
+		hooks.c \
+		bonus.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(patsubst $(SRC_PATH)%.c,$(OBJ_PATH)%.o,$(SRCS))
 INC = -I./MLX42/include -I ./includes/
