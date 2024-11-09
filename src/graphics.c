@@ -6,51 +6,11 @@
 /*   By: mpenas-z <mpenas-z@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:58:23 by mpenas-z          #+#    #+#             */
-/*   Updated: 2024/10/26 11:10:57 by mpenas-z         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:42:10 by mpenas-z         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	close_hook(void *param)
-{
-	t_fdf_map	*map;
-
-	map = param;
-	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(map->mlx);
-}
-
-void	bonus_hook(mlx_key_data_t keydata, void *param)
-{
-	t_fdf_map	**map;
-
-	map = param;
-	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
-	{
-		if ((*map)->current_palette < 4)
-			(*map)->current_palette++;
-		else
-			(*map)->current_palette = 0;
-		(*map)->img = render_map((*map));
-	}
-	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS)
-		(*map)->img = add_zoom((*map)->zoom * 1.1, map);
-	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
-		(*map)->img = add_zoom((*map)->zoom * 0.9, map);
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		(*map)->img = add_translation(0.1, 0, map);
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		(*map)->img = add_translation(-0.1, 0, map);
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		(*map)->img = add_translation(0, 0.1, map);
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		(*map)->img = add_translation(0, -0.1, map);
-	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
-		(*map)->img = add_rotation(10, map);
-	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		(*map)->img = add_rotation(-10, map);
-}
 
 void	paint_line(t_coords o, t_coords d, mlx_image_t *img, t_fdf_map *m)
 {
