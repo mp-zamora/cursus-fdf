@@ -6,7 +6,7 @@
 #    By: mpenas-z <mpenas-z@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 14:16:05 by mpenas-z          #+#    #+#              #
-#    Updated: 2024/11/09 17:59:37 by mpenas-z         ###   ########.fr        #
+#    Updated: 2024/11/16 16:08:31 by mpenas-z         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ $(OBJ_PATH):
 clean:
 	@printf "$(BLUE)Cleaning object files...$(RESET) \n"
 	@$(MAKE) -C $(LIB_PATH) clean > /dev/null 2>&1
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(BOBJS)
 	@printf "$(GREEN)✔ Objects cleaned succesfully!$(RESET) \n"
 
 fclean: clean
